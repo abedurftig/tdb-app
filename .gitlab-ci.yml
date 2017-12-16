@@ -9,7 +9,7 @@ stages:
 
 build:
   stage: build
-  script: npm install && poi build
+  script: npm install poi -g && npm install && poi build
   cache:
     key: "$CI_COMMIT_REF_NAME"
     policy: push
