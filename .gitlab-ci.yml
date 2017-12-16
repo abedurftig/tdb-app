@@ -9,7 +9,7 @@ stages:
 
 build:
   stage: build
-  script: yarn install && poi build
+  script: npm install && poi build
   cache:
     key: "$CI_COMMIT_REF_NAME"
     policy: push
