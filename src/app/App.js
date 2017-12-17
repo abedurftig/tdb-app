@@ -13,8 +13,7 @@ class App extends React.Component {
     }
 
     componentDidMount() {
-        console.log(process.env);
-        fetch("http://localhost:8080/api/account/1/projects").then(result => {
+        fetch(process.env.API_URL + "/account/1/projects").then(result => {
             return result.json();
         }).then(projects => {
 
