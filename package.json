@@ -2,7 +2,8 @@
   "scripts": {
     "set:env": "node setenv.js > .env",
     "dev": "npm run set:env && env-cmd .env poi",
-    "heroku": "npm run set:env && env-cmd .env poi build && http-server dist -p $PORT"
+    "heroku": "npm run set:env && env-cmd .env poi build && http-server dist -p $PORT",
+    "heroku:new": "http-server dist -p $PORT"
   },
   "dependencies": {
     "babel-plugin-react-require": "^3.0.0",
