@@ -34,6 +34,7 @@ deploy_staging:
     - cd $CI_PROJECT_DIR/heroku
     - git init
     - heroku git:remote $HEROKU_APP_NAME
+    - git add -A && git commit -m $CI_JOB_ID
     - git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master -f
   environment:
     name: tdb-app-staging
