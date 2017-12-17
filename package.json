@@ -1,17 +1,21 @@
 {
   "scripts": {
-    "dev": "poi",
-    "heroku": "poi build && http-server dist -p $PORT"
+    "set:env": "node setenv.js > .env",
+    "dev": "npm run set:env && env-cmd .env poi",
+    "heroku": "npm run set:env && env-cmd .env && poi build && http-server dist -p $PORT"
   },
   "dependencies": {
     "babel-plugin-react-require": "^3.0.0",
     "babel-preset-react-app": "^3.1.0",
-    "node-sass": "^4.7.2",
-    "sass-loader": "^6.0.6",
-    "poi": "^9.6.1",
+    "cross-env": "^5.1.1",
+    "env-cmd": "^7.0.0",
     "http-server": "^0.10.0",
+    "node-sass": "^4.7.2",
+    "poi": "^9.6.1",
+    "poi-preset-react": "^9.2.1",
     "react": "^16.2.0",
-    "react-dom": "^16.2.0"
+    "react-dom": "^16.2.0",
+    "sass-loader": "^6.0.6"
   },
   "engines": {
     "node": "8.1.3",
