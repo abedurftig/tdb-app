@@ -2,9 +2,8 @@
   "scripts": {
     "set:env": "node setenv.js > .env",
     "dev": "npm run set:env && env-cmd .env poi",
-    "heroku": "npm run set:env && env-cmd .env poi build && http-server dist -p $PORT",
-    "build": "API_URL=http://test.com npm run set:env && env-cmd .env poi build",
-    "heroku:new": "http-server public -p $PORT"
+    "build:prod": "NODE_ENV=production npm run set:env && env-cmd .env poi build",
+    "heroku": "http-server public -p $PORT"
   },
   "engines": {
     "node": "8.1.3",

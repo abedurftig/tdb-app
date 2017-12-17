@@ -10,11 +10,7 @@ stages:
 build:
   stage: build
   script: 
-    - npm install
-    - npm run build
-    - mkdir -p heroku/public
-    - cp dist/* heroku/public
-    - cp package.json heroku
+    - echo "building the tdb-app"
   cache:
     key: "$CI_COMMIT_REF_NAME"
     policy: push
@@ -29,9 +25,16 @@ deploy_staging:
   dependencies:
     - build
   script:
+    - npm install
+    - API_URL=https://tdb-service.herokuapp.com/api npm run build:prod
+    - mkdir -p heroku/public
+    - cp dist/* heroku/public
+    - cp package.json heroku
+    - cp Procfile heroku
     - cd $CI_PROJECT_DIR/heroku
+    - git init
     - heroku git:remote $HEROKU_APP_NAME
-    - git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
+    - git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master -f
   environment:
     name: tdb-app-staging
     url: https://tdb-app.herokuapp.com/
