@@ -20,7 +20,7 @@ deploy_staging:
     paths:
       - node_modules
   script:
-    - yarn install
+    - npm install
     - API_URL=https://tdb-service.herokuapp.com/api npm run build:prod
     - mkdir -p heroku/public
     - cp public/* heroku/public
