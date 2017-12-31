@@ -20,9 +20,7 @@ build:
     - npm test
     - mkdir -p heroku/public
     - cp public/* heroku/public
-    - cp package.json heroku
     - cp static.json heroku
-    - cp Procfile heroku
   artifacts:
     paths:
       - heroku
