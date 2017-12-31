@@ -41,7 +41,7 @@ class Project extends React.Component {
     )
   }
 
-  handleSelect = tr => {
+  handleSelect(tr) {
     this.setState({ selectedTestRun: tr })
     console.log(tr)
   }
