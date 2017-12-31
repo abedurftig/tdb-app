@@ -6,6 +6,7 @@
   "main": "src/index.js",
   "license": "MIT",
   "scripts": {
+    "test": "jest",
     "set:env": "node setenv.js > .env",
     "dev": "npm run set:env && env-cmd .env poi",
     "build:prod": "NODE_ENV=production npm run set:env && env-cmd .env poi build",
@@ -20,9 +21,14 @@
     "http-server": "^0.10.0"
   },
   "devDependencies": {
+    "babel-jest": "^22.0.4",
     "babel-plugin-react-require": "^3.0.0",
+    "babel-preset-es2015": "^6.24.1",
     "babel-preset-react-app": "^3.1.0",
     "env-cmd": "^7.0.0",
+    "history": "^4.7.2",
+    "jest": "^22.0.4",
+    "jest-junit": "^3.4.1",
     "node-sass": "^4.7.2",
     "poi": "^9.6.1",
     "react": "^16.2.0",
@@ -32,7 +38,14 @@
     "react-router-redux": "next",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
-    "history": "^4.7.2",
     "sass-loader": "^6.0.6"
+  },
+  "jest-junit": {
+    "suiteName": "tdb-app tests",
+    "output": "./test-results.xml",
+    "classNameTemplate": "{classname}-{title}",
+    "titleTemplate": "{classname}-{title}",
+    "ancestorSeparator": " › ",
+    "usePathForSuiteName": "true"
   }
 }
