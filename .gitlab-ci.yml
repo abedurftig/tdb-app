@@ -9,23 +9,26 @@ stages:
 
 build:
   stage: build
-  script: 
-    - echo "building and testing '$HEROKU_APP_NAME'"
-
-deploy_staging:
-  stage: deploy
   cache:
     key: "$CI_COMMIT_REF_NAME"
     policy: push
     paths:
       - node_modules
-  script:
-    - npm install
+  script: 
+    - yarn install
     - API_URL=https://tdb-service.herokuapp.com/api npm run build:prod
+    - npm test
     - mkdir -p heroku/public
     - cp public/* heroku/public
     - cp package.json heroku
     - cp Procfile heroku
+  artifacts:
+    paths:
+      - heroku
+
+deploy_staging:
+  stage: deploy
+  script:
     - cd $CI_PROJECT_DIR/heroku
     - git init
     - git config user.name $HEROKU_GIT_USER_NAME

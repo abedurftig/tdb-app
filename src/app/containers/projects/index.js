@@ -6,16 +6,13 @@ import {
 } from '../../reducers/projects'
 
 class Projects extends React.Component {
-  
   componentDidMount() {
     this.props.allProjects()
   }
   render() {  
-
     let projectsEl = this.props.projects.map(pr => {
       return <li key={pr.id}><Link to={"/projects/" + pr.id}>{pr.name}</Link></li>
     })
-
     return (
       <div>
         <h1>Projects</h1>
