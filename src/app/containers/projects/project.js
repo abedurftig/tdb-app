@@ -32,7 +32,8 @@ class Project extends React.Component {
             {tr && 
               <div>
                 <h4>Selected Test Run</h4>
-                <p>{tr.id}</p>
+                <p>{tr.name}</p>
+                <p>This test run had {tr.testSuites.length} Test Suites</p>
               </div>
             }
           </div>
@@ -43,7 +44,6 @@ class Project extends React.Component {
 
   handleSelect(tr) {
     this.setState({ selectedTestRun: tr })
-    console.log(tr)
   }
 
   getTestRunsEl(project) {
