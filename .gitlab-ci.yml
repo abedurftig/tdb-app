@@ -1,8 +1,5 @@
 image: registry.gitlab.com/addictedcoders/tdb-app
 
-variables:
-  GRADLE_OPTS: "-Dorg.gradle.daemon=false"
-
 stages:
   - build
   - deploy
