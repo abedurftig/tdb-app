@@ -13,6 +13,6 @@ module.exports = {
     return config;
   },
   html: {
-    template: 'src/index.ejs', // Defaults to $cwd/index.ejs if it exists, otherwise use built-in template
+    template: 'src/index.ejs'
   }
 }
