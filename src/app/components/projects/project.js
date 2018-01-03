@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import {
   getById
 } from '../../reducers/projects'
+import ProjectOverviewTable from './project-overview-table'
 
 class Project extends React.Component {
 
@@ -48,13 +49,14 @@ class Project extends React.Component {
 
   getTestRunsEl(project) {
     return (
-      <ul>
-      {
-        project.testRuns.map(tr => {
-          return <li key={tr.id} onClick={(e) => this.handleSelect(tr)}>{tr.name}</li>
-        })
-      }
-      </ul>
+      <ProjectOverviewTable project={project} />
+      // <ul>
+      // {
+      //   project.testRuns.map(tr => {
+      //     return <li key={tr.id} onClick={(e) => this.handleSelect(tr)}>{tr.name}</li>
+      //   })
+      // }
+      // </ul>
     )
   }
 
