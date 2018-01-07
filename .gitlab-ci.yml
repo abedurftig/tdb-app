@@ -13,6 +13,8 @@ build:
       - node_modules
   script: 
     - yarn install
+    - npm test
+    - upload.sh -p tdb-app -t $CI_COMMIT_REF_NAME@$CI_PIPELINE_ID
     - API_URL=https://tdb-service.herokuapp.com/api npm run build:prod
     - npm test
     - mkdir -p heroku/public
