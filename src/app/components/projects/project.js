@@ -5,6 +5,7 @@ import {
   getById
 } from '../../reducers/projects'
 import ProjectOverviewTable from './project-overview-table'
+import TestRunGraph from './project-testrun-graph'
 
 class Project extends React.Component {
 
@@ -30,13 +31,6 @@ class Project extends React.Component {
             {
               this.getTestRunsEl(p)
             }
-            {tr && 
-              <div>
-                <h4>Selected Test Run</h4>
-                <p>{tr.name}</p>
-                <p>This test run had {tr.testSuites.length} Test Suites</p>
-              </div>
-            }
           </div>
         }
       </div>
@@ -48,8 +42,35 @@ class Project extends React.Component {
   }
 
   getTestRunsEl(project) {
+
+    var data = {
+      labels: ["TR1", "TR2"],
+      datasets: [{
+          label: 'Passed',
+          backgroundColor: '#039E1F',
+          data: [
+            5, 6
+          ]
+      }, {
+          label: 'Skipped',
+          backgroundColor: '#F4D742',
+          data: [
+            1, 0
+          ]
+      }, {
+          label: 'Failure',
+          backgroundColor: '#FF0000',
+          data: [
+            1, 1
+          ]
+      }]
+    }
+
     return (
-      <ProjectOverviewTable project={project} />
+      <div>
+        <ProjectOverviewTable project={project} />
+        <TestRunGraph data={data} />
+      </div>
     )
   }
 
