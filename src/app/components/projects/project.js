@@ -50,13 +50,6 @@ class Project extends React.Component {
   getTestRunsEl(project) {
     return (
       <ProjectOverviewTable project={project} />
-      // <ul>
-      // {
-      //   project.testRuns.map(tr => {
-      //     return <li key={tr.id} onClick={(e) => this.handleSelect(tr)}>{tr.name}</li>
-      //   })
-      // }
-      // </ul>
     )
   }
 
