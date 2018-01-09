@@ -27,7 +27,7 @@ class TestRunGraph extends React.Component {
 
     return (
       <Card fluid>
-        <Bar data={this.props.data} options={options} height="100"/>
+        <Bar data={this.props.data} options={options} height={100}/>
       </Card>
     )
   }
