@@ -6,31 +6,41 @@ import {
 } from '../../reducers/projects'
 
 class Projects extends React.Component {
+  
   componentDidMount() {
     this.props.allProjects()
   }
+
   render() {  
-    let projectsEl = this.props.projects.map(pr => {
-      return <li key={pr.id}><Link to={"/projects/" + pr.id}>{pr.name}</Link></li>
-    })
-    return (
-      <div>
-        <h1>Projects</h1>
-        {!this.props.loading &&
-          <p>Count: {this.props.projects.length}</p>
-        }
-        {
-          <ul>
-            {projectsEl}
-          </ul>
-        }
-      </div>
-    )
+    return this.props.projects ?
+      buildElement(this.props.projects) :
+      <div>loading...</div>
   }
+
+}
+
+const buildElement = projects => {
+
+  let projectsEl = projects.map(pr => {
+    return <li key={pr.id}><Link to={"/projects/" + pr.id}>{pr.name}</Link></li>
+  })
+  
+  return (
+    <div>
+      <h1>Projects</h1>
+      <div>
+        <p>Count: {projects.length}</p>
+        <ul>
+          {projectsEl}
+        </ul>
+      </div>
+    </div>
+  )
+
 }
 
 const mapStateToProps = state => ({
-  projects: state.projects.projects,
+  projects: state.projects.all,
   loading: state.projects.loading,
 })
 
