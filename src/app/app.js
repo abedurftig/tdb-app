@@ -6,6 +6,8 @@ import Home from './components/home'
 import About from './components/about'
 import Projects from './components/projects/projects'
 import Project from './components/projects/project'
+import Dashboard from './components/dashboard'
+import LandingPage from './components/landingpage'
 import Menu from 'semantic-ui-react/dist/commonjs/collections/Menu'
 import Segment from 'semantic-ui-react/dist/commonjs/elements/Segment'
 
@@ -29,18 +31,21 @@ class App extends React.Component {
     const { activeItem } = this.state
     return (
       <div>
-        <Menu pointing secondary>
+        {/* <Menu pointing secondary>
+          <Menu.Item name='dashboard' active={activeItem === 'dashboard'} onClick={(e) => this.goToPage('dashboard')} />
           <Menu.Item name='account' active={activeItem === 'account'} onClick={(e) => this.goToPage('account')} />
           <Menu.Item name='projects' active={activeItem === 'projects'} onClick={(e) => this.goToPage('projects')} />
           <Menu.Menu position='right'>
             <Menu.Item name='about-us' active={activeItem === 'about-us'} onClick={(e) => this.goToPage('about-us')} />
           </Menu.Menu>
-        </Menu>
+        </Menu> */}
         <Segment>
-          <Route exact path="/" render={() => <Redirect to="/projects"/>} />
+          <Route exact path="/" render={() => <Redirect to="/landingpage"/>} />
+          <Route exact path="/dashboard" component={Dashboard} />
           <Route exact path="/about-us" component={About} />
           <Route exact path="/projects" component={Projects} />
           <Route path="/projects/:id" component={Project} />
+          <Route path="/langindpage" component={LandingPage} />
         </Segment>
       </div>
     )
