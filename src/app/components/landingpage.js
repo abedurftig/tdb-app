@@ -79,13 +79,6 @@ class CreateAccountForm extends React.Component {
     })
   }
 
-  handleErrors(response) {
-    if (!response.ok) {
-        throw Error(response.message);
-    }
-    return response;
-  }
-
   handleSubmit(event) {
     event.preventDefault();
 
@@ -98,21 +91,49 @@ class CreateAccountForm extends React.Component {
       headers
     } 
 
-    fetch(process.env.API_URL + "/account", options)
-    .then(this.handleErrors)
-    .then(function(response) {
-        return response.json()
-    }).then(function(data) {
+    function handleErrors(response) {
+      if (!response.ok) {
+          throw Error(response.statusText);
+      }
+      return response;
+  }
+
+  fetch(process.env.API_URL + "/account", options)
+    .then( response => {
+      if (!response.ok) { throw response }
+      return response.json()  //we only get here if there is no error
+    })
+    .then( json => {
       this.setState({ 
         completed: true,
         accountInformation: {
           accountName: '',
           email: '',
           password: ''
-        }})
-    }.bind(this)).catch(function(error) {
-      this.setState({errorMessage: error.message})
-    }.bind(this))
+        }
+      })
+    })
+    .catch( errData => {
+      errData.text().then( err => {
+        this.setState({errorMessage: JSON.parse(err).message})
+      })
+    })
+
+    // fetch(process.env.API_URL + "/account", options)
+    // .then(this.handleErrors)
+    // .then(function(response) {
+    //     return response.json()
+    // }).then(function(data) {
+    //   this.setState({ 
+    //     completed: true,
+    //     accountInformation: {
+    //       accountName: '',
+    //       email: '',
+    //       password: ''
+    //     }})
+    // }.bind(this)).catch(function(error) {
+    //   this.setState({errorMessage: error.message})
+    // }.bind(this))
 
   }
 
@@ -124,7 +145,7 @@ class CreateAccountForm extends React.Component {
         header="Account has been created!"
         content="You can now login."
       ></Message>
-      <Message hidden={!this.state.errorMessage || this.state.errorMessage.length == 0} error>
+      <Message hidden={this.state.errorMessage.length == 0} error>
         <Message.Content>
           <Message.Header>There was a small issue.</Message.Header>
           <p>{this.state.errorMessage}</p>
