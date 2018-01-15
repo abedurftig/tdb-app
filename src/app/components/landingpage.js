@@ -1,4 +1,5 @@
 import { Grid, Image, Segment, Input, Form, Button, Message } from 'semantic-ui-react'
+import request from '../util'
 
 const onSubmit = (event, data) => {
 
@@ -48,26 +49,36 @@ class LoginForm extends React.Component {
       headers
     } 
 
-  fetch(process.env.API_URL + "/login", options)
-    .then( response => {
-      if (!response.ok) { throw response }
-      console.log(response.headers.get("Authorization"))
-      return response.json()  //we only get here if there is no error
+    request("login", options)
+    .then(data => {
+      console.log(data)
     })
-    .then( json => {
-      console.log()
-      this.setState({ 
-        errorMessage: "",
-        email: '',
-        password: ''
-      })
+    .catch(error => {
+      console.log(error)
     })
-    .catch( errData => {
-      errData.text().then( err => {
-        this.setState({errorMessage: JSON.parse(err).message, success: false})
-      })
-    })
-  }
+
+
+
+  // fetch(process.env.API_URL + "/login", options)
+  //   .then( response => {
+  //     if (!response.ok) { throw response }
+  //     console.log(response.headers.get("Authorization"))
+  //     return response.json()  //we only get here if there is no error
+  //   })
+  //   .then( json => {
+  //     console.log()
+  //     this.setState({ 
+  //       errorMessage: "",
+  //       email: '',
+  //       password: ''
+  //     })
+  //   })
+  //   .catch( errData => {
+  //     errData.text().then( err => {
+  //       this.setState({errorMessage: JSON.parse(err).message, success: false})
+  //     })
+  //   })
+  // }
 
   render() {
     return (
