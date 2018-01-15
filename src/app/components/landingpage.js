@@ -12,31 +12,72 @@ class LoginForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: '',
-      password: ''
-    };
-
+      errorMessage: "",
+      login: {
+        email: '',
+        password: ''
+      }
+    }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange(event) {
     let { name, value } = event.target
-    this.setState({ [name]: value })
+    this.setState({
+      login: Object.assign({}, this.state.login, { [name]: value })
+    })
   }
 
   handleSubmit(event) {
     event.preventDefault();
+
+    console.log(this.state)
+
+    let data = {
+      username: this.state.login.email,
+      password: this.state.login.password
+    }
+
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    let options = {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers
+    } 
+
+  fetch(process.env.API_URL + "/login", options)
+    .then( response => {
+      if (!response.ok) { throw response }
+      console.log(response.headers.get("Authorization"))
+      return response.json()  //we only get here if there is no error
+    })
+    .then( json => {
+      console.log()
+      this.setState({ 
+        errorMessage: "",
+        email: '',
+        password: ''
+      })
+    })
+    .catch( errData => {
+      errData.text().then( err => {
+        this.setState({errorMessage: JSON.parse(err).message, success: false})
+      })
+    })
   }
 
   render() {
     return (
-    <Form onSubmit={this.handleSubmit}>
-      <Message
-        success
-        header='Form Completed'
-        content="You're all signed up for the newsletter"
-      ></Message>
+    <Form onSubmit={this.handleSubmit} success error>
+      <Message hidden={this.state.errorMessage.length == 0} error>
+        <Message.Content>
+          <Message.Header>There was a small issue.</Message.Header>
+          <p>{this.state.errorMessage}</p>
+        </Message.Content>
+      </Message>
       <Form.Field>
         <label>Email</label>
         <input placeholder='Email' 
@@ -59,7 +100,7 @@ class CreateAccountForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      completed: false,
+      success: false,
       errorMessage: "",
       accountInformation: {
         accountName: '',
@@ -105,7 +146,8 @@ class CreateAccountForm extends React.Component {
     })
     .then( json => {
       this.setState({ 
-        completed: true,
+        success: true,
+        errorMessage: "",
         accountInformation: {
           accountName: '',
           email: '',
@@ -115,32 +157,15 @@ class CreateAccountForm extends React.Component {
     })
     .catch( errData => {
       errData.text().then( err => {
-        this.setState({errorMessage: JSON.parse(err).message})
+        this.setState({errorMessage: JSON.parse(err).message, success: false})
       })
     })
-
-    // fetch(process.env.API_URL + "/account", options)
-    // .then(this.handleErrors)
-    // .then(function(response) {
-    //     return response.json()
-    // }).then(function(data) {
-    //   this.setState({ 
-    //     completed: true,
-    //     accountInformation: {
-    //       accountName: '',
-    //       email: '',
-    //       password: ''
-    //     }})
-    // }.bind(this)).catch(function(error) {
-    //   this.setState({errorMessage: error.message})
-    // }.bind(this))
-
   }
 
   render() {
     return (
     <Form onSubmit={this.handleSubmit} success error>
-      <Message hidden={!this.state.completed}
+      <Message hidden={!this.state.success}
         success
         header="Account has been created!"
         content="You can now login."
@@ -174,20 +199,20 @@ class CreateAccountForm extends React.Component {
 }
 
 const LandingPage = () => (
-    <Grid stackable columns={2} padded='horizontally'>
-      <Grid.Column>
-        <Segment>
-          <h3>Create Account</h3>
-          <CreateAccountForm />
-        </Segment>
-      </Grid.Column>
-      <Grid.Column>
-        <Segment>
-          <h3>Login</h3>
-          <LoginForm />
-        </Segment>
-      </Grid.Column>
-    </Grid>
-  )
+  <Grid stackable columns={2} padded='horizontally'>
+    <Grid.Column>
+      <Segment>
+        <h3>Create Account</h3>
+        <CreateAccountForm />
+      </Segment>
+    </Grid.Column>
+    <Grid.Column>
+      <Segment>
+        <h3>Login</h3>
+        <LoginForm />
+      </Segment>
+    </Grid.Column>
+  </Grid>
+)
   
-  export default LandingPage
+export default LandingPage
