@@ -1,14 +1,17 @@
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import {
-  allProjects
-} from '../../reducers/projects'
+import { allProjects } from '../../reducers/projects'
+import { Icon, Input, Button, Item } from 'semantic-ui-react'
 
 class Projects extends React.Component {
   
   componentDidMount() {
-    this.props.allProjects()
+    console.log("mount")
+    if (this.props.user) {
+      console.log("user" + this.props.user.accountId)
+      this.props.allProjects(this.props.user.accountId)
+    }
   }
 
   render() {  
@@ -27,7 +30,10 @@ const buildElement = projects => {
   
   return (
     <div>
-      <h1>Projects</h1>
+      <Input size="tiny"iconPosition='left' placeholder='Create project...'
+        action={<Button primary>Save</Button>}
+        actionPosition='right'
+        icon='add' floated='right'/>
       <div>
         <p>Count: {projects.length}</p>
         <ul>
@@ -39,10 +45,14 @@ const buildElement = projects => {
 
 }
 
-const mapStateToProps = state => ({
-  projects: state.projects.all,
-  loading: state.projects.loading,
-})
+const mapStateToProps = state => {
+  console.log(state)
+  return {
+    user: state.session.user,
+    projects: state.projects.all,
+    loading: state.projects.loading,
+  }
+}
 
 const mapDispatchToProps = dispatch => bindActionCreators({
   allProjects

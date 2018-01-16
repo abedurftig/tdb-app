@@ -22,11 +22,18 @@ function parseJSON(response) {
  *
  * @return {Promise}           The request promise
  */
-export default function request(url, options) {
+export function request(url, options) {
+
+  if (options === undefined) {
+    options = {}
+    options.headers = new Headers()
+  }
+  options.headers.set('Authorization', sessionStorage.getItem("jwtToken"))
+
   return new Promise((resolve, reject) => {
     fetch(process.env.API_URL + "/" + url, options)
       .then(parseJSON)
-      .then((response) => {
+      .then(response => {
         if (response.ok || response.status === 201) {
           return resolve(response.json);
         }

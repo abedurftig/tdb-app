@@ -1,3 +1,5 @@
+import { request } from '../util'
+
 export const ALL_REQUESTED = 'projects/ALL_REQUESTED'
 export const ALL_RECEIVED = 'projects/ALL_RECEIVED'
 export const PROJECT_REQUESTED = 'projects/PROJECT_REQUESTED'
@@ -57,15 +59,17 @@ export default (state = initialState, action) => {
   }
 }
 
-export const allProjects = () => {
+export const allProjects = (accountId) => {
   return dispatch => {
     dispatch({
       type: ALL_REQUESTED
     })
-    return fetch(process.env.API_URL + '/account/1/projects-summary')
-    .then(result => {
-      return result.json()
-    }).then(projects => {
+    // fetch(process.env.API_URL + '/account/' + accountId + '/projects-summary')
+    // .then(result => {
+    //   return result.json()
+    // })
+    return request('account/' + accountId + '/projects-summary')
+    .then(projects => {
       dispatch({
         type: ALL_RECEIVED,
         projects
