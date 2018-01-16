@@ -7,6 +7,9 @@ export const PROJECT_RECEIVED = 'projects/PROJECT_RECEIVED'
 export const SUMMARY_REQUESTED = 'projects/SUMMARY_REQUESTED'
 export const SUMAMRT_RECEIVED = 'projects/SUMMART_RECEIVED'
 
+export const PROJECT_NEW = 'projects/PROJECT_NEW'
+export const PROJECT_CREATED = 'projects/PROJECT_CREATED'
+
 const initialState = {
   all: [],
   project: undefined,
