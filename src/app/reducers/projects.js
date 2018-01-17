@@ -1,4 +1,4 @@
-import { request } from '../util'
+import * as Api from '../api'
 
 export const ALL_REQUESTED = 'projects/ALL_REQUESTED'
 export const ALL_RECEIVED = 'projects/ALL_RECEIVED'
@@ -56,10 +56,31 @@ export default (state = initialState, action) => {
         ...state,
         loadingSummary: false,
         testRunsSummary: action.testRunsSummary
-      }              
+      }
+    case PROJECT_CREATED:
+      return Object.assign({}, state, {
+        all: state.all.concat([action.project])
+      })
     default:
       return state
   }
+}
+
+export const createProject = (accountId, name) => {
+  
+  return dispatch => {
+    dispatch({
+      type: PROJECT_NEW
+    })
+    return Api.post('project', { accountId, name })
+    .then(project => {
+      dispatch({
+        type: PROJECT_CREATED,
+        project
+      })
+    })
+  }
+
 }
 
 export const allProjects = (accountId) => {
@@ -67,11 +88,7 @@ export const allProjects = (accountId) => {
     dispatch({
       type: ALL_REQUESTED
     })
-    // fetch(process.env.API_URL + '/account/' + accountId + '/projects-summary')
-    // .then(result => {
-    //   return result.json()
-    // })
-    return request('account/' + accountId + '/projects-summary')
+    return Api.request('account/' + accountId + '/projects-summary')
     .then(projects => {
       dispatch({
         type: ALL_RECEIVED,
@@ -86,10 +103,8 @@ export const getById = id => {
     dispatch({
       type: PROJECT_REQUESTED
     })
-    return fetch(process.env.API_URL + '/project/' + id)
-    .then(result => {
-      return result.json()
-    }).then(project => {
+    return Api.request('project/' + id)
+    .then(project => {
       dispatch({
         type: PROJECT_RECEIVED,
         project
@@ -103,10 +118,8 @@ export const getTestRunsSummary = projectId => {
     dispatch({
       type: SUMMARY_REQUESTED
     })
-    return fetch(process.env.API_URL + '/project/' + projectId + '/testruns-summary')
-    .then(result => {
-      return result.json()
-    }).then(testRunsSummary => {
+    return Api.request('project/' + projectId + '/testruns-summary')
+    .then(testRunsSummary => {
       dispatch({
         type: SUMAMRT_RECEIVED,
         testRunsSummary

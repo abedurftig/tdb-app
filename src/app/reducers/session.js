@@ -1,3 +1,5 @@
+import * as Api from '../api'
+
 export const TOKEN_REFRESH_REQUESTED = 'session/TOKEN_REFRESH_REQUESTED'
 export const TOKEN_REFRESH_RECEIVED = 'session/TOKEN_REFRESH_RECEIVED'
 export const AUTH_USER_CHANGED = 'session/AUTH_USER_CHANGED'
@@ -26,6 +28,48 @@ export default (state = initialState, action) => {
 
 export const refreshToken = () => {}
 
+// export const login = (username, password) => {
+// 
+  // let data = { username, password }
+
+  // let headers = new Headers();
+  // headers.append('Content-Type', 'application/json');
+
+  // let options = {
+  //   method: "POST",
+  //   body: JSON.stringify(data),
+  //   headers
+  // } 
+
+  // let handleResponse = (rawReponse) => {
+  //   console.log("rawResponse:" + rawReponse)
+  //   let token = response.headers.get('Authorization')
+  //   sessionStorage.setItem("jwtToken", token)
+  // }
+
+  
+  //   this.props.setAuthUser(user)
+  //   // this.props.goTo("projects")
+  // })
+  // .catch(error => {
+  //   console.log(error)
+  // })
+
+  // return dispatch => {
+  //   dispatch({
+  //     type: PROJECT_NEW
+  //   })
+  //   return Api.post('project', { accountId, name })
+  //   .then(project => {
+  //     dispatch({
+  //       type: PROJECT_CREATED,
+  //       project
+  //     })
+  //   })
+  // }
+    
+// }
+
 export const setAuthUser = user => {
 
   return dispatch => {
@@ -33,15 +77,6 @@ export const setAuthUser = user => {
       type: AUTH_USER_CHANGED,
       user
     })
-    // return fetch(process.env.API_URL + '/account/1/projects-summary')
-    // .then(result => {
-    //   return result.json()
-    // }).then(projects => {
-    //   dispatch({
-    //     type: ALL_RECEIVED,
-    //     projects
-    //   })
-    // })
   }
 
 }

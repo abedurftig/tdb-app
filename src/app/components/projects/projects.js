@@ -2,7 +2,8 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { allProjects } from '../../reducers/projects'
-import { Icon, Input, Button, Item } from 'semantic-ui-react'
+import { Icon, Input, Button, Item, Divider } from 'semantic-ui-react'
+import CreateProject from './create-project'
 
 class Projects extends React.Component {
   
@@ -30,12 +31,10 @@ const buildElement = projects => {
   
   return (
     <div>
-      <Input size="tiny"iconPosition='left' placeholder='Create project...'
-        action={<Button primary>Save</Button>}
-        actionPosition='right'
-        icon='add' floated='right'/>
+      <CreateProject />
+      <Divider clearing />
+      <p>You currently have {projects.length} projects.</p>
       <div>
-        <p>Count: {projects.length}</p>
         <ul>
           {projectsEl}
         </ul>

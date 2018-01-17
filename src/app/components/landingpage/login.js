@@ -1,13 +1,14 @@
 import { Input, Form, Button, Message } from 'semantic-ui-react'
-import request from '../../util'
 import { push } from 'react-router-redux'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import { request } from '../../api'
 import { setAuthUser } from '../../reducers/session'
 
 class LoginForm extends React.Component {
 
   constructor(props) {
+
     super(props);
     this.state = {
       errorMessage: "",
@@ -16,8 +17,10 @@ class LoginForm extends React.Component {
         password: ''
       }
     }
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
+
   }
 
   handleChange(event) {
@@ -27,11 +30,18 @@ class LoginForm extends React.Component {
     })
   }
 
+  componentWillUpdate (nextProps, nextState) {
+    // console.log(nextProps)
+    //   console.log(nextState)
+    if (nextProps.user) {
+      this.props.goTo("projects")
+    }
+  }
+
   handleSubmit(event) {
+    
     event.preventDefault();
-
-    console.log(this.state)
-
+    
     let data = {
       username: this.state.login.email,
       password: this.state.login.password
@@ -54,7 +64,6 @@ class LoginForm extends React.Component {
       })
       .then(user => {
         this.props.setAuthUser(user)
-        this.props.goTo("projects")
       })
       .catch(error => {
         console.log(error)
@@ -100,5 +109,3 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(LoginForm)
-
-// export default LoginForm

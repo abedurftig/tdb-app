@@ -1,4 +1,5 @@
 import TestRunGraph from './project-testrun-graph'
+import { request } from '../../api'
 
 class ProjectTestRunsGraph extends React.Component {
 
@@ -8,10 +9,8 @@ class ProjectTestRunsGraph extends React.Component {
   }
 
   componentDidMount() {
-    fetch(process.env.API_URL + '/project/' + this.props.projectId + '/testruns-summary')
-    .then(result => {
-      return result.json()
-    }).then(summary => {
+    request('project/' + this.props.projectId + '/testruns-summary')
+    .then(summary => {
       this.setState({ summary })
     })
   }

@@ -8,9 +8,8 @@ import Projects from './components/projects/projects'
 import Project from './components/projects/project'
 import Dashboard from './components/dashboard'
 import LandingPage from './components/landingpage'
-import Menu from 'semantic-ui-react/dist/commonjs/collections/Menu'
-import Segment from 'semantic-ui-react/dist/commonjs/elements/Segment'
-import { request } from './util'
+import { Menu, Segment, Button } from 'semantic-ui-react'
+import { request } from './api'
 import { setAuthUser } from './reducers/session'
 
 class App extends React.Component {
@@ -19,17 +18,15 @@ class App extends React.Component {
 
   refreshToken(loc) {
 
-    if (sessionStorage.getItem('jwtToken') !== undefined) {
+    if (sessionStorage.getItem('jwtToken')) {
       request("token-refresh")
       .then(user => {
-        console.log("User is ided by token.")
         this.props.setAuthUser(user)
         this.setState({ user })
         this.goToPage(loc)
       })
       .catch(error => {
-        console.log("Could not refresh the token.")
-        // sessionStorage.clear()
+        sessionStorage.clear()
         this.goToPage("landingpage")
       })
     }
@@ -38,6 +35,9 @@ class App extends React.Component {
 
   goToPage = (name) => {
     this.setState({activeItem: name})
+    if (name === 'landingpage') {
+      sessionStorage.setItem('jwtToken', '')
+    }
     this.props.goTo(name)
   }
 
@@ -68,6 +68,7 @@ class App extends React.Component {
           <Menu.Menu position='right'>
             <Menu.Item name='about-us' active={activeItem === 'about-us'} onClick={(e) => this.goToPage('about-us')} />
             <Menu.Item header>{this.state.user.name}</Menu.Item>
+            <Menu.Item icon='sign out' onClick={(e) => this.goToPage('landingpage')}/>
           </Menu.Menu>
         </Menu> 
         

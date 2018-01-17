@@ -3,6 +3,7 @@ import { Input, Form, Button, Message } from 'semantic-ui-react'
 class CreateAccountForm extends React.Component {
 
   constructor(props) {
+
     super(props);
     this.state = {
       success: false,
@@ -12,20 +13,24 @@ class CreateAccountForm extends React.Component {
         email: '',
         password: ''
       }
-    };
+    }
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
+
   }
 
   handleChange(event) {
+    
     let { name, value } = event.target
     this.setState({
       accountInformation: Object.assign({}, this.state.accountInformation, { [name]: value })
     })
+
   }
 
   handleSubmit(event) {
+    
     event.preventDefault();
 
     let headers = new Headers();
@@ -42,29 +47,29 @@ class CreateAccountForm extends React.Component {
           throw Error(response.statusText);
       }
       return response;
-  }
+    }
 
-  fetch(process.env.API_URL + "/account", options)
-    .then( response => {
-      if (!response.ok) { throw response }
-      return response.json()  //we only get here if there is no error
-    })
-    .then( json => {
-      this.setState({ 
-        success: true,
-        errorMessage: "",
-        accountInformation: {
-          accountName: '',
-          email: '',
-          password: ''
-        }
+    fetch(process.env.API_URL + "/account", options)
+      .then( response => {
+        if (!response.ok) { throw response }
+          return response.json()  //we only get here if there is no error
       })
-    })
-    .catch( errData => {
-      errData.text().then( err => {
-        this.setState({errorMessage: JSON.parse(err).message, success: false})
+      .then( json => {
+        this.setState({ 
+          success: true,
+          errorMessage: "",
+          accountInformation: {
+            accountName: '',
+            email: '',
+            password: ''
+          }
+        })
       })
-    })
+      .catch( errData => {
+        errData.text().then( err => {
+          this.setState({errorMessage: JSON.parse(err).message, success: false})
+        })
+      })
   }
 
   render() {
