@@ -35,9 +35,6 @@ class App extends React.Component {
 
   goToPage = (name) => {
     this.setState({activeItem: name})
-    if (name === 'landingpage') {
-      sessionStorage.setItem('jwtToken', '')
-    }
     this.props.goTo(name)
   }
 
@@ -70,10 +67,9 @@ class App extends React.Component {
             <Menu.Item header>{this.state.user.name}</Menu.Item>
             <Menu.Item icon='sign out' onClick={(e) => this.goToPage('landingpage')}/>
           </Menu.Menu>
-        </Menu> 
-        
+        </Menu>
         <Segment>
-          <Route exact path="/" render={() => <Redirect to="/landingpage"/>} />
+          {/* <Route exact path="/" render={() => <Redirect to="/landingpage"/>} /> */}
           <Route exact path="/dashboard" component={Dashboard} />
           <Route exact path="/about-us" component={About} />
           <Route exact path="/projects" component={Projects} />
@@ -82,9 +78,12 @@ class App extends React.Component {
         </Segment>
         </div>
         }
+        {!this.state.user && 
         <Segment>
-          <Route path="/landingpage" component={LandingPage} />
+          <Route path="/**" render={() => <Redirect to="/landingpage"/>} />
+          <Route exact path="/landingpage" component={LandingPage} />
         </Segment>
+        }
       
       </div>
     )
