@@ -7,6 +7,9 @@ export const PROJECT_RECEIVED = 'projects/PROJECT_RECEIVED'
 export const SUMMARY_REQUESTED = 'projects/SUMMARY_REQUESTED'
 export const SUMAMRT_RECEIVED = 'projects/SUMMART_RECEIVED'
 
+export const DELETE_PROJECT = 'projects/DELETE_PROJECT'
+export const PROJECT_DELETED = 'projects/PROJECT_DELETED'
+
 export const PROJECT_NEW = 'projects/PROJECT_NEW'
 export const PROJECT_CREATED = 'projects/PROJECT_CREATED'
 
@@ -64,6 +67,10 @@ export default (state = initialState, action) => {
       return Object.assign({}, state, {
         all: state.all.concat([action.project])
       })
+    case PROJECT_DELETED:
+      return Object.assign({}, state, {
+        all: state.all.filter(p => p.id !== action.projectId)
+      })  
     default:
       return state
   }
@@ -111,6 +118,21 @@ export const getById = id => {
       dispatch({
         type: PROJECT_RECEIVED,
         project
+      })
+    })
+  }
+}
+
+export const deleteProject = projectId => {
+  return dispatch => {
+    dispatch({
+      type: DELETE_PROJECT
+    })
+    return Api.del('project/' + projectId)
+    .then(response => {
+      dispatch({
+        type: PROJECT_DELETED,
+        projectId
       })
     })
   }

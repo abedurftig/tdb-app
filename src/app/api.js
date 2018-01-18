@@ -1,10 +1,3 @@
-/**
- * Parses the JSON returned by a network request
- *
- * @param  {object} response A response from a network request
- *
- * @return {object}          The parsed JSON, status from the response
- */
 function parseJSON(response) {
   return new Promise((resolve) => response.json()
     .then((json) => resolve({
@@ -14,21 +7,20 @@ function parseJSON(response) {
     })));
 }
 
-/**
- * Requests a URL, returning a promise
- *
- * @param  {string} url       The URL we want to request
- * @param  {object} [options] The options we want to pass to "fetch"
- *
- * @return {Promise}           The request promise
- */
-export function request(url, options) {
-
-  if (options === undefined) {
-    options = {}
-    options.headers = new Headers()
+function getHeaders() {
+  let token = sessionStorage.getItem("jwtToken")
+  let headers = new Headers();
+  headers.set('Content-Type', 'application/json')
+  if (token) {
+    headers.set('Authorization', token)
   }
-  options.headers.set('Authorization', sessionStorage.getItem("jwtToken"))
+  return headers
+}
+
+export function request(url) {
+
+  let options = {}
+  options.headers = getHeaders()
 
   return new Promise((resolve, reject) => {
     fetch(process.env.API_URL + "/" + url, options)
@@ -46,20 +38,33 @@ export function request(url, options) {
   });
 }
 
+export function del(url) {
+  let options = {
+    method: "DELETE",
+    headers: getHeaders()
+  } 
+  return new Promise((resolve, reject) => {
+    fetch(process.env.API_URL + "/" + url, options)
+    // .then(parseJSON)
+    .then(response => {
+      if (response.ok) {
+        return resolve(response);
+      }
+      // extract the error from the server's json
+      return reject(response.json.meta.error);
+    })
+    .catch((error) => reject({
+      networkError: error.message,
+    }))
+  })
+}
+
 export function post(url, data, rawHandler) {
-
-  let token = sessionStorage.getItem("jwtToken")
-
-  let headers = new Headers();
-  headers.set('Content-Type', 'application/json')
-  if (token) {
-    headers.set('Authorization', token)
-  }
 
   let options = {
     method: "POST",
     body: JSON.stringify(data),
-    headers
+    headers: getHeaders()
   } 
 
   return new Promise((resolve, reject) => {

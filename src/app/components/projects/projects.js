@@ -1,10 +1,12 @@
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { allProjects } from '../../reducers/projects'
+import { allProjects, deleteProject } from '../../reducers/projects'
 import { Icon, Input, Button, Item, Divider } from 'semantic-ui-react'
 import CreateProject from './create-project'
+import ProjectItem from './project-item'
 import { withRouter } from 'react-router'
+import * as Api from '../../api'
 
 
 class Projects extends React.Component {
@@ -19,16 +21,16 @@ class Projects extends React.Component {
 
   render() {  
     return this.props.projects ?
-      buildElement(this.props.projects) :
+      buildElement(this.props.projects, this.props.deleteProject) :
       <div>loading...</div>
   }
 
 }
 
-const buildElement = projects => {
+const buildElement = (projects, deleteProject) => {
 
   let projectsEl = projects.map(pr => {
-    return <li key={pr.id}><Link to={"/projects/" + pr.id}>{pr.name}</Link></li>
+    return <ProjectItem key={pr.id} project={pr} deleteFunction={deleteProject}/>
   })
   
   return (
@@ -37,9 +39,7 @@ const buildElement = projects => {
       <Divider clearing />
       <p>You currently have {projects.length} projects.</p>
       <div>
-        <ul>
           {projectsEl}
-        </ul>
       </div>
     </div>
   )
@@ -56,7 +56,8 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-  allProjects
+  allProjects,
+  deleteProject
 }, dispatch)
 
 export default withRouter(connect(
