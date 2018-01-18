@@ -1,4 +1,5 @@
 import * as Api from '../api'
+import { push } from 'react-router-redux'
 
 export const TOKEN_REFRESH_REQUESTED = 'session/TOKEN_REFRESH_REQUESTED'
 export const TOKEN_REFRESH_RECEIVED = 'session/TOKEN_REFRESH_RECEIVED'
@@ -69,6 +70,18 @@ export const refreshToken = () => {}
   // }
     
 // }
+
+export const loginSuccess = user => {
+
+  return dispatch => {
+    dispatch({
+      type: AUTH_USER_CHANGED,
+      user
+    })
+    dispatch(push('/projects'))
+  }
+
+}
 
 export const setAuthUser = user => {
 

@@ -3,7 +3,8 @@ import { push } from 'react-router-redux'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { request } from '../../api'
-import { setAuthUser } from '../../reducers/session'
+import { setAuthUser, loginSuccess } from '../../reducers/session'
+import { withRouter } from 'react-router'
 
 class LoginForm extends React.Component {
 
@@ -28,14 +29,6 @@ class LoginForm extends React.Component {
     this.setState({
       login: Object.assign({}, this.state.login, { [name]: value })
     })
-  }
-
-  componentWillUpdate (nextProps, nextState) {
-    // console.log(nextProps)
-    //   console.log(nextState)
-    if (nextProps.user) {
-      this.props.goTo("projects")
-    }
   }
 
   handleSubmit(event) {
@@ -63,7 +56,7 @@ class LoginForm extends React.Component {
         return response.json()
       })
       .then(user => {
-        this.props.setAuthUser(user)
+        this.props.loginSuccess(user)
       })
       .catch(error => {
         console.log(error)
@@ -102,10 +95,11 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => bindActionCreators({
   goTo: (name) => push('/' + name),
-  setAuthUser
+  setAuthUser,
+  loginSuccess
 }, dispatch)
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps,
   mapDispatchToProps
-)(LoginForm)
+)(LoginForm))

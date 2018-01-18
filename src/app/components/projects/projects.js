@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom'
 import { allProjects } from '../../reducers/projects'
 import { Icon, Input, Button, Item, Divider } from 'semantic-ui-react'
 import CreateProject from './create-project'
+import { withRouter } from 'react-router'
+
 
 class Projects extends React.Component {
   
@@ -57,7 +59,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
   allProjects
 }, dispatch)
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps,
   mapDispatchToProps
-)(Projects)
+)(Projects))

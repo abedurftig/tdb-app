@@ -1,6 +1,8 @@
 import { Grid, Segment } from 'semantic-ui-react'
 import CreateAccountForm from './create-account'
 import LoginForm from './login'
+import { withRouter } from 'react-router'
+
 
 const LandingPage = () => (
   <Grid stackable columns={2} padded='horizontally'>
@@ -19,4 +21,4 @@ const LandingPage = () => (
   </Grid>
 )
   
-export default LandingPage
+export default withRouter(LandingPage)

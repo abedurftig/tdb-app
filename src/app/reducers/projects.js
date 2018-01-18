@@ -19,6 +19,9 @@ const initialState = {
 }
 
 export default (state = initialState, action) => {
+
+  console.log("state.projects:" + JSON.stringify(action))
+
   switch (action.type) {
     case ALL_REQUESTED:
       return {
