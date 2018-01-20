@@ -56,7 +56,12 @@ class LoginForm extends React.Component {
         return response.json()
       })
       .then(user => {
-        this.props.loginSuccess(user)
+        let { search } = this.props.location
+        let redirect
+        if (search) {
+          redirect = search.split("?r=")[1] || ''
+        }
+        this.props.loginSuccess(user, redirect)
       })
       .catch(error => {
         console.log(error)
@@ -64,6 +69,7 @@ class LoginForm extends React.Component {
   }
 
   render() {
+
     return (
     <Form onSubmit={this.handleSubmit} success error>
       <Message hidden={this.state.errorMessage.length == 0} error>
