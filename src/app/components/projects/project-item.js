@@ -1,5 +1,7 @@
 import { Segment, Button, Grid } from 'semantic-ui-react'
 
+import { Link } from 'react-router-dom'
+
 export default (props) => {
   
   let { project, deleteFunction } = props
@@ -14,7 +16,8 @@ export default (props) => {
       <Grid verticalAlign='middle'>
         <Grid.Row>
           <Grid.Column width={8}>
-            <b>{project.name}</b>
+            {/* <b>{project.name}</b> */}
+            <Link to={'/projects/' + project.id}>{project.name}</Link>
             <p>This project has {project.numTestRuns} test runs.</p>
           </Grid.Column>
           <Grid.Column width={8}>

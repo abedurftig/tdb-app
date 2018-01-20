@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import Home from './components/home'
 import About from './components/about'
+import AccountScreen from './components/account'
 import Projects from './components/projects/projects'
 import Project from './components/projects/project'
 import Dashboard from './components/dashboard'
@@ -63,6 +64,7 @@ class App extends React.Component {
         <Segment>
           <Switch>
             <Route exact path="/dashboard" component={Dashboard} />
+            <Route exact path="/account" render={() => <AccountScreen user={this.props.user} />} />
             <Route exact path="/about-us" component={About} />
             <Route exact path="/projects" component={Projects} />
             <Route path="/projects/:id" component={Project} />

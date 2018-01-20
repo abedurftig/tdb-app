@@ -4,8 +4,6 @@ class AppMenu extends React.Component {
 
   constructor(props) {
     super(props)
-    console.log(props.defaultItem)
-    console.log(this.props.defaultItem)
     this.state = { activeItem: this.props.defaultItem }
   }
 
@@ -25,7 +23,7 @@ class AppMenu extends React.Component {
 
     return(
       <Menu pointing secondary>
-        <Menu.Item name='dashboard' active={activeItem === 'dashboard'} onClick={(e) => this.navigate('dashboard')} />
+        {/* <Menu.Item name='dashboard' active={activeItem === 'dashboard'} onClick={(e) => this.navigate('dashboard')} /> */}
         <Menu.Item name='account' active={activeItem === 'account'} onClick={(e) => this.navigate('account')} />
         <Menu.Item name='projects' active={activeItem === 'projects'} onClick={(e) => this.navigate('projects')} />
         <Menu.Menu position='right'>
