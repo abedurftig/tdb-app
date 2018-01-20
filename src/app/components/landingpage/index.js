@@ -1,7 +1,6 @@
 import { Grid, Segment } from 'semantic-ui-react'
 import CreateAccountForm from './create-account'
 import LoginForm from './login'
-import { withRouter } from 'react-router'
 
 
 const LandingPage = () => (
@@ -21,4 +20,4 @@ const LandingPage = () => (
   </Grid>
 )
   
-export default withRouter(LandingPage)
+export default LandingPage

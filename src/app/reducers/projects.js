@@ -1,4 +1,5 @@
 import * as Api from '../api'
+import { LOGOUT_RECEIVED } from './session'
 
 export const ALL_REQUESTED = 'projects/ALL_REQUESTED'
 export const ALL_RECEIVED = 'projects/ALL_RECEIVED'
@@ -22,9 +23,6 @@ const initialState = {
 }
 
 export default (state = initialState, action) => {
-
-  console.log("state.projects:" + JSON.stringify(action))
-
   switch (action.type) {
     case ALL_REQUESTED:
       return {
@@ -70,7 +68,9 @@ export default (state = initialState, action) => {
     case PROJECT_DELETED:
       return Object.assign({}, state, {
         all: state.all.filter(p => p.id !== action.projectId)
-      })  
+      })
+    case LOGOUT_RECEIVED:
+      return Object.assign({}, state, initialState)
     default:
       return state
   }

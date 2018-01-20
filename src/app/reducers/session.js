@@ -14,65 +14,23 @@ const initialState = {
 }
 
 export default (state = initialState, action) => {
-  
   switch (action.type) {
     case AUTH_USER_CHANGED:
-      console.log(action.user)
       return {
         ...state,
         user: action.user
       }
+    case LOGOUT_RECEIVED:
+      return {
+        ...state,
+        user: undefined
+      }  
     default:
       return state  
   }
 }
 
-export const refreshToken = () => {}
-
-// export const login = (username, password) => {
-// 
-  // let data = { username, password }
-
-  // let headers = new Headers();
-  // headers.append('Content-Type', 'application/json');
-
-  // let options = {
-  //   method: "POST",
-  //   body: JSON.stringify(data),
-  //   headers
-  // } 
-
-  // let handleResponse = (rawReponse) => {
-  //   console.log("rawResponse:" + rawReponse)
-  //   let token = response.headers.get('Authorization')
-  //   sessionStorage.setItem("jwtToken", token)
-  // }
-
-  
-  //   this.props.setAuthUser(user)
-  //   // this.props.goTo("projects")
-  // })
-  // .catch(error => {
-  //   console.log(error)
-  // })
-
-  // return dispatch => {
-  //   dispatch({
-  //     type: PROJECT_NEW
-  //   })
-  //   return Api.post('project', { accountId, name })
-  //   .then(project => {
-  //     dispatch({
-  //       type: PROJECT_CREATED,
-  //       project
-  //     })
-  //   })
-  // }
-    
-// }
-
 export const loginSuccess = user => {
-
   return dispatch => {
     dispatch({
       type: AUTH_USER_CHANGED,
@@ -80,18 +38,23 @@ export const loginSuccess = user => {
     })
     dispatch(push('/projects'))
   }
-
 }
 
 export const setAuthUser = user => {
-
   return dispatch => {
     dispatch({
       type: AUTH_USER_CHANGED,
       user
     })
   }
-
 }
 
-export const logout = () => {}
+export const logout = () => {
+  sessionStorage.clear()
+  return dispatch => {
+    dispatch({
+      type: LOGOUT_RECEIVED
+    })
+    dispatch(push('/landingpage'))
+  }
+}
