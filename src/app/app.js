@@ -80,7 +80,7 @@ class App extends React.Component {
           <Switch>
             <Route exact path="/about-us" component={About} />
             <Route exact path="/landingpage" component={LandingPage} />
-            <Redirect to="/landingpage"/>
+            <Redirect to={'/landingpage?r=' + this.props.location.pathname}/>
           </Switch>
         </Segment>
         }

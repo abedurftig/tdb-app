@@ -30,13 +30,16 @@ export default (state = initialState, action) => {
   }
 }
 
-export const loginSuccess = user => {
+export const loginSuccess = (user, redirect) => {
+
+  let route = redirect || '/projects'
+  console.log(route)
   return dispatch => {
     dispatch({
       type: AUTH_USER_CHANGED,
       user
     })
-    dispatch(push('/projects'))
+    dispatch(push(route))
   }
 }
 
