@@ -17,16 +17,18 @@ import { setAuthUser, logout } from './reducers/session'
 
 class App extends React.Component {
   
-  state = { activeItem: 'projects', user: undefined }
+  state = { activeItem: 'projects', user: undefined, loading: true }
   refreshToken(loc) {
 
     if (sessionStorage.getItem('jwtToken')) {
       request("token-refresh")
       .then(user => {
+        this.setState({loading: false})
         this.props.setAuthUser(user)
         this.goToPage(loc)
       })
       .catch(error => {
+        this.setState({loading: false})
         sessionStorage.clear()
         this.goToPage("landingpage")
       })
@@ -59,7 +61,7 @@ class App extends React.Component {
       <div>
         <AppMenu goToPage={this.goToPage} logout={this.logout}
           user={this.props.user} activeItem={activeItem}/>
-        {this.props.user && 
+        {!this.state.loading && this.props.user && 
         <Segment>
           <Switch>
             <Route exact path="/dashboard" component={Dashboard} />
@@ -71,7 +73,7 @@ class App extends React.Component {
           </Switch>
         </Segment>
         }
-        {!this.props.user && 
+        {!this.state.loading && !this.props.user && 
         <Segment>
           <Switch>
             <Route exact path="/about-us" component={About} />
