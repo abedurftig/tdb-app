@@ -1,4 +1,4 @@
-import { Menu } from 'semantic-ui-react'
+import { Menu, Dropdown, Icon} from 'semantic-ui-react'
 
 class AppMenu extends React.Component {
 
@@ -17,7 +17,7 @@ class AppMenu extends React.Component {
   render() {
 
     let { user, activeItem } = this.props
-
+    
     return(
       <Menu pointing secondary>
         {/* <Menu.Item name='dashboard' active={activeItem === 'dashboard'} onClick={(e) => this.navigate('dashboard')} /> */}
@@ -27,7 +27,11 @@ class AppMenu extends React.Component {
         {!user && <Menu.Item name='login' active={activeItem === 'landingpage'} onClick={(e) => this.navigate('landingpage')} />}
           <Menu.Item name='about-us' active={activeItem === 'about-us'} onClick={(e) => this.navigate('about-us')} />
           {user && <Menu.Item header>{user.name}</Menu.Item>}
-          {user && <Menu.Item icon='sign out' onClick={(e) => this.logout()}/>}
+          {user && <Dropdown icon='user' item compact >
+            <Dropdown.Menu>
+              <Dropdown.Item onClick={() => this.logout()}>Logout</Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>}
         </Menu.Menu>
       </Menu>
     ) 
