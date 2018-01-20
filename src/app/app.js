@@ -32,6 +32,8 @@ class App extends React.Component {
         sessionStorage.clear()
         this.goToPage("landingpage")
       })
+    } else {
+      this.setState({loading: false})
     }
 
   }
