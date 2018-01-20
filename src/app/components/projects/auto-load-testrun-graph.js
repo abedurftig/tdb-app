@@ -1,20 +1,24 @@
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
-import {
-  getTestRunsSummary
-} from '../../reducers/projects'
 import TestRunGraph from './project-testrun-graph'
+import { request } from '../../api'
 
 class ProjectTestRunsGraph extends React.Component {
 
+  constructor(props) {
+    super(props)
+    this.state = {summary: undefined}
+  }
+
   componentDidMount() {
-      this.props.getTestRunsSummary(this.props.projectId)
+    request('project/' + this.props.projectId + '/testruns-summary')
+    .then(summary => {
+      this.setState({ summary })
+    })
   }
 
   render() {
 
     let result = <div>loading..</div>
-    let { summary } = this.props
+    let { summary } = this.state
 
     if (summary) {
       let dataInput = buildDataInput(summary)
@@ -69,16 +73,4 @@ const buildData = dataInput => {
 
 }
 
-const mapStateToProps = state => ({
-  summary: state.projects.testRunsSummary,
-  loadingSummary: state.projects.loadingSummary
-})
-
-const mapDispatchToProps = dispatch => bindActionCreators({
-  getTestRunsSummary
-}, dispatch)
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ProjectTestRunsGraph)
+export default ProjectTestRunsGraph
