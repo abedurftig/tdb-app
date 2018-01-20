@@ -12,9 +12,7 @@ import * as Api from '../../api'
 class Projects extends React.Component {
   
   componentDidMount() {
-    console.log("mount")
     if (this.props.user) {
-      console.log("user" + this.props.user.accountId)
       this.props.allProjects(this.props.user.accountId)
     }
   }
@@ -47,7 +45,6 @@ const buildElement = (projects, deleteProject) => {
 }
 
 const mapStateToProps = state => {
-  console.log(state)
   return {
     user: state.session.user,
     projects: state.projects.all,

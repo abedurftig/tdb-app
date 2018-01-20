@@ -54,7 +54,7 @@ class App extends React.Component {
   }
 
   render() {
-    let activeItem = this.props.location.pathname.replace('/', '') || 'projects'
+    let activeItem = this.props.location.pathname.split("/")[1] || 'projects'
     return (
       <div>
         <AppMenu goToPage={this.goToPage} logout={this.logout}
