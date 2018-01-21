@@ -7,7 +7,6 @@ export default (props) => {
   let { project, deleteFunction } = props
   
   let deleteProject = () => {
-    console.log("delete p")
     deleteFunction(project.id)
   }
 
@@ -16,7 +15,6 @@ export default (props) => {
       <Grid verticalAlign='middle'>
         <Grid.Row>
           <Grid.Column width={8}>
-            {/* <b>{project.name}</b> */}
             <Link to={'/projects/' + project.id}>{project.name}</Link>
             <p>This project has {project.numTestRuns} test runs.</p>
           </Grid.Column>

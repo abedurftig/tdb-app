@@ -8,7 +8,11 @@ describe('account reducer', () => {
      
     expect(
       reducer(undefined, {}))
-    .toEqual({ id: undefined, name: undefined, dashboards: [] })
+    .toEqual(null)
+
+    expect(
+      reducer(null, {}))
+    .toEqual(null)
 
   })
 
@@ -28,6 +32,12 @@ describe('account reducer', () => {
 
   it('should handle dashboard created action', () => {
      
+    let stateBefore = {
+      id: undefined,
+      name: undefined,
+      dashboards: []
+    }
+
     let newDashboard = {
       id: 1,
       name: "Dashboard One",
@@ -41,7 +51,7 @@ describe('account reducer', () => {
     }
 
     expect(
-      reducer(undefined, DashboardActions.dashboardCreatedAction(newDashboard)))
+      reducer(stateBefore, DashboardActions.dashboardCreatedAction(newDashboard)))
     .toEqual(stateAfter)
 
   })

@@ -7,7 +7,7 @@ export const loadAccount = accountId => {
 
   return dispatch => {
     dispatch(requestAccountAction(accountId))
-    return Api.request('account/' + account)
+    return Api.request('account/' + accountId)
     .then(account => {
       dispatch(accountReveivedAction(account))
     })

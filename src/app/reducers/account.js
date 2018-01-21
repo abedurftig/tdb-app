@@ -12,11 +12,7 @@ import {
 
 import dashboard from './dashboard'
 
-const initialState = {
-  id: undefined,
-  name: undefined,
-  dashboards: []
-}
+const initialState = null
 
 export default (state = initialState, action) => {
   switch (action.type) {
