@@ -5,7 +5,11 @@ import {
   DASHBOARD_UPDATED
 } from './dashboard-actions'
 
-import _ from 'lodash'
+import {
+  REQUEST_ACCOUNT,
+  ACCOUNT_RECEIVED
+} from './account-actions'
+
 import dashboard from './dashboard'
 
 const initialState = {
@@ -15,7 +19,6 @@ const initialState = {
 }
 
 export default (state = initialState, action) => {
-  
   switch (action.type) {
     case DASHBOARD_CREATED:
       return {
@@ -29,8 +32,9 @@ export default (state = initialState, action) => {
         ...state,
         dashboards: state.dashboards.map(d => dashboard(d, action))
       }
+    case ACCOUNT_RECEIVED:
+      return action.account 
     default:
       return state  
   }
 }
-

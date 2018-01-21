@@ -1,5 +1,6 @@
 import reducer from './account';
-import * as Actions from './dashboard-actions';
+import * as DashboardActions from './dashboard-actions';
+import * as AccountActions from './account-actions';
 
 describe('account reducer', () => {
     
@@ -8,6 +9,20 @@ describe('account reducer', () => {
     expect(
       reducer(undefined, {}))
     .toEqual({ id: undefined, name: undefined, dashboards: [] })
+
+  })
+
+  it('should handle account received', () => {
+     
+    let account = {
+      id: 1,
+      name: "Test Account",
+      dashboards: []
+    }
+
+    expect(
+      reducer(undefined, AccountActions.accountReveivedAction(account)))
+    .toEqual(account)
 
   })
 
@@ -26,7 +41,7 @@ describe('account reducer', () => {
     }
 
     expect(
-      reducer(undefined, Actions.dashboardCreatedAction(newDashboard)))
+      reducer(undefined, DashboardActions.dashboardCreatedAction(newDashboard)))
     .toEqual(stateAfter)
 
   })
@@ -70,7 +85,7 @@ describe('account reducer', () => {
     }
 
     expect(
-      reducer(stateBefore, Actions.dashboardUpdatedAction(updatedDashboard)))
+      reducer(stateBefore, DashboardActions.dashboardUpdatedAction(updatedDashboard)))
     .toEqual(stateAfter)
 
   })
