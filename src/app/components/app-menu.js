@@ -22,7 +22,7 @@ class AppMenu extends React.Component {
       <Menu pointing secondary>
         {/* <Menu.Item name='dashboard' active={activeItem === 'dashboard'} onClick={(e) => this.navigate('dashboard')} /> */}
         {user && <Menu.Item name='account' active={activeItem === 'account'} onClick={(e) => this.navigate('account')} />}
-        {/* {user && <Menu.Item name='dashboards' active={activeItem === 'dashboards'} onClick={(e) => this.navigate('dashboards')} />} */}
+        {user && <Menu.Item name='dashboards' active={activeItem === 'dashboards'} onClick={(e) => this.navigate('dashboards')} />}
         {user && <Menu.Item name='projects' active={activeItem === 'projects'} onClick={(e) => this.navigate('projects')} />}
         <Menu.Menu position='right'>
         {!user && <Menu.Item name='login' active={activeItem === 'landingpage'} onClick={(e) => this.navigate('landingpage')} />}
