@@ -100,4 +100,37 @@ describe('account reducer', () => {
 
   })
 
+  it('should handle dashboard deleted action', () => {
+     
+    let stateBefore = {
+      dashboards: [
+        {
+          id: 1,
+          name: "Dashboard One",
+          projectIds: [1, 2, 3]
+        },
+        {
+          id: 2,
+          name: "Dashboard Two",
+          projectIds: [4, 5]
+        }
+      ]
+    }
+
+    let stateAfter = {
+      dashboards: [
+        {
+          id: 2,
+          name: "Dashboard Two",
+          projectIds: [4, 5]
+        }
+      ]
+    }
+
+    expect(
+      reducer(stateBefore, DashboardActions.dashboardDeletedAction(1)))
+    .toEqual(stateAfter)
+
+  })
+
 })

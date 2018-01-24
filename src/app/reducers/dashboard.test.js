@@ -1,7 +1,7 @@
 import reducer from './dashboard';
 import * as Actions from './dashboard-actions';
 
-describe('session reducer', () => {
+describe('dashboard reducer', () => {
     
   it('should return the initial state', () => {
      

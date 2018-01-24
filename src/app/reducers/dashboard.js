@@ -2,7 +2,9 @@ import {
   CREATE_DASHBOARD,
   DASHBOARD_CREATED,
   UPDATE_DASHBOARD,
-  DASHBOARD_UPDATED
+  DASHBOARD_UPDATED,
+  DELETE_DASHBOARD,
+  DASHBOARD_DELETED
 } from './dashboard-actions'
 
 const initialState = {
@@ -21,7 +23,7 @@ export default (state = initialState, action) => {
     case DASHBOARD_UPDATED:
       return state.id == action.dashboard.id ?
         Object.assign({}, action.dashboard) :
-        state
+        state  
     default:
       return state  
   }

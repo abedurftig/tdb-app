@@ -2,7 +2,9 @@ import {
   CREATE_DASHBOARD,
   DASHBOARD_CREATED,
   UPDATE_DASHBOARD,
-  DASHBOARD_UPDATED
+  DASHBOARD_UPDATED,
+  DELETE_DASHBOARD,
+  DASHBOARD_DELETED
 } from './dashboard-actions'
 
 import {
@@ -28,6 +30,10 @@ export default (state = initialState, action) => {
         ...state,
         dashboards: state.dashboards.map(d => dashboard(d, action))
       }
+    case DASHBOARD_DELETED:
+      return Object.assign({}, state, {
+        dashboards: state.dashboards.filter(d => d.id !== action.dashboardId)
+      })    
     case ACCOUNT_RECEIVED:
       return action.account 
     default:
