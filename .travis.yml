@@ -18,4 +18,5 @@ before_deploy:
 deploy:
   provider: script
   script: deployment/toherokustatic.sh
-  on: master
+  on: 
+    branch: master
