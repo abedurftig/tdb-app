@@ -10,7 +10,13 @@ script:
   - $TRAVIS_BUILD_DIR/upload.sh -p tdb-app -t $TRAVIS_BRANCH@$TRAVIS_BUILD_NUMBER
   - API_URL=https://tdb-service.herokuapp.com/api npm run build:prod
 
-# before_deploy:
-#   - mkdir -p heroku/public
-#   - cp public/* heroku/public
-#   - cp static.json heroku
+before_deploy:
+  - mkdir -p heroku/public
+  - cp public/* heroku/public
+  - cp static.json heroku
+
+deploy:
+  provider: script
+  script: deployment/toherokustatic.sh
+  on:
+    branch: develop
