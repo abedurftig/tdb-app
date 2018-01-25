@@ -1,3 +1,4 @@
+import './styles/main.scss'
 import { render } from 'react-dom'
 import { withRouter } from 'react-router'
 import { Provider } from 'react-redux'
