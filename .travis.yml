@@ -24,3 +24,14 @@ deploy:
     script: deployment/to_heroku_staging.sh
     on: 
       branch: develop    
+
+deploy:
+  skip_cleanup: true
+  - provider: script
+    script: deployment/to_heroku.sh develop
+    on:
+      branch: develop
+  - provider: script
+    script: deployment/to_heroku.sh master
+    on:
+      branch: master      
