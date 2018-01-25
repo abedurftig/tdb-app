@@ -13,11 +13,14 @@ script:
 before_deploy:
   - mkdir -p heroku/public
   - cp public/* heroku/public
-  - cp static.json heroku
 
 deploy:
-  provider: script
-  script: deployment/toherokustatic.sh
   skip_cleanup: true
-  on: 
-    branch: master
+  - provider: script
+    script: deployment/to_heroku.sh develop
+    on:
+      branch: develop
+  - provider: script
+    script: deployment/to_heroku.sh master
+    on:
+      branch: master
