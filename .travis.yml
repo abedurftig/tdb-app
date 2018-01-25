@@ -15,12 +15,12 @@ before_deploy:
   - cp public/* heroku/public
 
 deploy:
-  skip_cleanup: true
-  - provider: script
-    script: deployment/to_heroku.sh develop
-    on:
-      branch: develop
-  - provider: script
-    script: deployment/to_heroku.sh master
-    on:
-      branch: master
+- provider: script
+  script: deployment/to_heroku.sh develop
+  on:
+    branch: develop
+- provider: script
+  script: deployment/to_heroku.sh master
+  on:
+    branch: master
+  skip_cleanup: true    
