@@ -23,4 +23,4 @@ deploy:
   - provider: script
     script: deployment/to_heroku.sh master
     on:
-      branch: master      
+      branch: master
