@@ -5,7 +5,6 @@ import { allProjects, deleteProject } from '../../reducers/projects'
 import { Icon, Input, Button, Item, Divider } from 'semantic-ui-react'
 import CreateProject from './create-project'
 import ProjectItem from './project-item'
-import { withRouter } from 'react-router'
 import * as Api from '../../api'
 
 
@@ -57,7 +56,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
   deleteProject
 }, dispatch)
 
-export default withRouter(connect(
+export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Projects))
+)(Projects)

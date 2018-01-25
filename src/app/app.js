@@ -7,6 +7,7 @@ import About from './components/about'
 import AccountScreen from './components/account'
 import Projects from './components/projects/projects'
 import Project from './components/projects/project'
+import Dashboards from './components/dashboard/dashboards'
 import Dashboard from './components/dashboard'
 import LandingPage from './components/landingpage'
 import AppMenu from './components/app-menu'
@@ -66,7 +67,8 @@ class App extends React.Component {
         {!this.state.loading && this.props.user && 
         <Segment>
           <Switch>
-            <Route exact path="/dashboard" component={Dashboard} />
+            <Route exact path="/dashboards" component={Dashboards} />
+            <Route path="/dashboards/:id" render={() => <Dashboard numberOfColumns={2} />} />
             <Route exact path="/account" render={() => <AccountScreen user={this.props.user} />} />
             <Route exact path="/about-us" component={About} />
             <Route exact path="/projects" component={Projects} />

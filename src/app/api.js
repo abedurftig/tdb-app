@@ -87,3 +87,32 @@ export function post(url, data, rawHandler) {
       }))
   })
 }
+
+export function update(url, data, rawHandler) {
+
+  let options = {
+    method: "PUT",
+    body: JSON.stringify(data),
+    headers: getHeaders()
+  } 
+
+  return new Promise((resolve, reject) => {
+    fetch(process.env.API_URL + "/" + url, options)
+      .then(rawResponse => {
+        if (rawHandler) {
+          rawHandler(rawResponse)
+        }
+        return parseJSON(rawResponse)
+      })
+      .then(response => {
+        if (response.ok) {
+          return resolve(response.json);
+        }
+        // extract the error from the server's json
+        return reject(response.json.meta.error);
+      })
+      .catch((error) => reject({
+        networkError: error.message,
+      }))
+  })
+}

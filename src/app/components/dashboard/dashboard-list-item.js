@@ -1,13 +1,12 @@
 import { Segment, Button, Grid } from 'semantic-ui-react'
-
 import { Link } from 'react-router-dom'
 
 export default (props) => {
   
-  let { project, deleteFunction } = props
-  
-  let deleteProject = () => {
-    deleteFunction(project.id)
+  let { id, name } = props.dashboard
+
+  let deleteDashboard = () => {
+    props.deleteFunction(id)
   }
 
   return (
@@ -15,11 +14,10 @@ export default (props) => {
       <Grid verticalAlign='middle'>
         <Grid.Row>
           <Grid.Column width={8}>
-            <Link to={'/projects/' + project.id}>{project.name}</Link>
-            <p>This project has {project.numTestRuns} test runs.</p>
+            <Link to={'/dashboards/' + id}>{name}</Link>
           </Grid.Column>
           <Grid.Column width={8}>
-            <Button icon='trash outline' floated='right' onClick={deleteProject}/>
+            <Button icon='trash outline' floated='right' onClick={deleteDashboard}/>
           </Grid.Column>
         </Grid.Row>
       </Grid>
