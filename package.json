@@ -8,7 +8,7 @@
   "scripts": {
     "test": "jest",
     "dev": "poi",
-    "build:prod": "poi build && cp env.js public/env",
+    "build:prod": "poi build && cp env.js public/",
     "heroku": "http-server public -p $PORT"
   },
   "engines": {
