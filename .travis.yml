@@ -20,6 +20,7 @@ deploy:
   script: deployment/to_heroku.sh develop
   on:
     branch: develop
+  skip_cleanup: true  
 - provider: script
   script: deployment/to_heroku.sh master
   on:
