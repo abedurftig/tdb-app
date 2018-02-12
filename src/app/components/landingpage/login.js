@@ -49,7 +49,7 @@ class LoginForm extends React.Component {
       headers
     } 
 
-    fetch(process.env.API_URL + "/login", options)
+    fetch(window.env.API_URL + "/login", options)
       .then(response => {
         let token = response.headers.get('Authorization')
         sessionStorage.setItem("jwtToken", token)

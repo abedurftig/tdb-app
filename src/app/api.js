@@ -23,7 +23,7 @@ export function request(url) {
   options.headers = getHeaders()
 
   return new Promise((resolve, reject) => {
-    fetch(process.env.API_URL + "/" + url, options)
+    fetch(window.env.API_URL + "/" + url, options)
       .then(parseJSON)
       .then(response => {
         if (response.ok || response.status === 201) {
@@ -44,7 +44,7 @@ export function del(url) {
     headers: getHeaders()
   } 
   return new Promise((resolve, reject) => {
-    fetch(process.env.API_URL + "/" + url, options)
+    fetch(window.env.API_URL + "/" + url, options)
     // .then(parseJSON)
     .then(response => {
       if (response.ok) {
@@ -68,7 +68,7 @@ export function post(url, data, rawHandler) {
   } 
 
   return new Promise((resolve, reject) => {
-    fetch(process.env.API_URL + "/" + url, options)
+    fetch(window.env.API_URL + "/" + url, options)
       .then(rawResponse => {
         if (rawHandler) {
           rawHandler(rawResponse)
@@ -97,7 +97,7 @@ export function update(url, data, rawHandler) {
   } 
 
   return new Promise((resolve, reject) => {
-    fetch(process.env.API_URL + "/" + url, options)
+    fetch(window.env.API_URL + "/" + url, options)
       .then(rawResponse => {
         if (rawHandler) {
           rawHandler(rawResponse)
