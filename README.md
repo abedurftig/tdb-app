@@ -40,7 +40,7 @@ A `Dockerfile` is provided. The image uses `nginx`.
 Build a Docker image.
 
 ```
-docker build -t tdb-app:0.0.1 .
+docker build -t tdb-app:0.0.1 -f docker/Dockerfile .
 ```
 
 Run a container. On startup the `API_URL` for the backend service has to be provided. It will then be injected in the `env.js` file.
