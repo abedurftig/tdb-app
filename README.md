@@ -18,7 +18,7 @@ This project uses [`poi`](https://poi.js.org) as bundler. It it also used to bui
 yarn install && npm run dev
 ```
 
-This is run the application in `development` mode and hot modul replacement is activated. For local development you will have to specify the `API_URL` for a backend service (see the `env.js` file).
+This will run the application in `development` mode and hot modul replacement is activated. For local development you will have to specify the `API_URL` for a backend service (see the `env.js` file).
 
 #### Build
 
@@ -27,7 +27,7 @@ Internally `poi` is used to create the production build. For convience run the `
 ```
 npm run build:prod
 ```
-This is step is a prerequisite to the next steps.
+This is step is a prerequisite to the next steps. It produces a bunch of static files. See the `public` folder.
 
 #### Deployment
 
