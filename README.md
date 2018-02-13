@@ -1,8 +1,8 @@
 master<br>
-[![Build Status](https://travis-ci.org/abedurftig/tdb-app.svg?branch=master)](https://travis-ci.org/abedurftig/tdb-service)
+[![Build Status](https://travis-ci.org/abedurftig/tdb-app.svg?branch=master)](https://travis-ci.org/abedurftig/tdb-app)
 
 develop<br>
-[![Build Status](https://travis-ci.org/abedurftig/tdb-app.svg?branch=develop)](https://travis-ci.org/abedurftig/tdb-service)
+[![Build Status](https://travis-ci.org/abedurftig/tdb-app.svg?branch=develop)](https://travis-ci.org/abedurftig/tdb-app)
 
 ### Test Dashboard App
 
