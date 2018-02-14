@@ -38,8 +38,8 @@ deploy:
 after_success:
   - docker login -u $DOCKER_USER -p $DOCKER_PW
   - export REPO=dasnervtdoch/tdb-app
-  - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_COMMIT ; fi`
-  - docker build -f docker/Dockerfile -t $REPO:$TRAVIS_BRANCH:$TAG .
+  - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BUILD_NUMBER ; fi`
+  - docker build -f docker/Dockerfile -t $REPO:$TRAVIS_BRANCH.$TAG .
   # - docker tag $REPO:$TRAVIS_COMMIT $REPO:$TAG
   # - docker tag $REPO:$TRAVIS_COMMIT $REPO:travis-$TRAVIS_BUILD_NUMBER
   - docker push $REPO
