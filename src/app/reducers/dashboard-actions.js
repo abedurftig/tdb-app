@@ -11,7 +11,8 @@ export const createDashboard = (name, projectIds) => {
 
   return dispatch => {
     dispatch(createDashboardAction(name, projectIds))
-    return Api.post('dashboard', { name, projectIds })
+    let items = projectIds.map(id => { return { projectId: id } })
+    return Api.post('dashboard', { name, items })
     .then(dashboard => {
       dispatch(dashboardCreatedAction(dashboard))
     })
