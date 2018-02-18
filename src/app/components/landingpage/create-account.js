@@ -52,7 +52,7 @@ class CreateAccountForm extends React.Component {
     fetch(window.env.API_URL + "/account", options)
       .then( response => {
         if (!response.ok) { throw response }
-          return response.json()  //we only get here if there is no error
+        return response.json()  //we only get here if there is no error
       })
       .then( json => {
         this.setState({ 
