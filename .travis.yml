@@ -38,5 +38,7 @@ after_success:
   - docker login -u $DOCKER_USER -p $DOCKER_PW
   - export REPO=dasnervtdoch/tdb-app
   - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo "$TRAVIS_BRANCH.$TRAVIS_BUILD_NUMBER" ; fi`
+  - echo $TAG
   - docker build -f build/docker/jdk8/Dockerfile -t $REPO:$TAG .
+  - docker images
   - docker push $REPO
