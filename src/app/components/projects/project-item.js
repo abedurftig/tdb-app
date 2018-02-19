@@ -17,6 +17,7 @@ export default (props) => {
           <Grid.Column width={8}>
             <Link to={'/projects/' + project.id}>{project.name}</Link>
             <p>This project has {project.numTestRuns} test runs.</p>
+            <i>The project key: {project.externalId}</i>
           </Grid.Column>
           <Grid.Column width={8}>
             <Button icon='trash outline' floated='right' onClick={deleteProject}/>

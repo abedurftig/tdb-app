@@ -7,9 +7,8 @@
   "license": "MIT",
   "scripts": {
     "test": "jest",
-    "set:env": "node setenv.js > .env",
-    "dev": "npm run set:env && env-cmd .env poi",
-    "build:prod": "NODE_ENV=production npm run set:env && env-cmd .env poi build",
+    "dev": "poi",
+    "build:prod": "poi build && cp env.js public/",
     "heroku": "http-server public -p $PORT"
   },
   "engines": {
@@ -26,7 +25,6 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react-app": "^3.1.0",
     "babel-preset-stage-0": "^6.24.1",
-    "env-cmd": "^7.0.0",
     "history": "^4.7.2",
     "jest": "^22.0.4",
     "jest-junit": "^3.4.1",

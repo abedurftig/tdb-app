@@ -14,8 +14,8 @@ const buildElement = (gridItems) => {
         {
           row.map(item => {
             return (
-              <Grid.Column key={item}>
-                <DashboardItem title={item} projectId={item} />
+              <Grid.Column key={item.projectId}>
+                <DashboardItem title={item.name} projectId={item.projectId} />
               </Grid.Column>
             )
           })
@@ -42,7 +42,7 @@ class Dashboard extends React.Component {
     if (this.props.match.params.id && this.props.dashboards.length > 0) {
       let numberOfColumns = this.props.numberOfColumns || 2
       let dashboard = this.props.dashboards.filter(d => d.id == this.props.match.params.id)[0]
-      let gridItems = makeGridItems(dashboard.projectIds, numberOfColumns)
+      let gridItems = makeGridItems(dashboard.items, numberOfColumns)
       return (
         <Grid stackable columns={numberOfColumns}>
           {buildElement(gridItems)}

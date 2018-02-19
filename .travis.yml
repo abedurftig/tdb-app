@@ -5,10 +5,18 @@ node_js:
 cache:
   yarn: true  
 
+services:
+  - docker
+  
+env:
+  global:
+  - secure: FgNQB6LMn/Ra8VCIWh3rPVK2baMUuErYHfM1apuBNa7vqPmvJtTLAH92PKOLQ9ZbJ+bbjkvzgjB1RZTDlY2ISvyyezgqs4oRwYAVh5JBxN/Neg5IQCXcYBC21/5qnzKvwcYyw3hQrii1KvReSRX5ItRm/YHpZ2AXVmdqbSXF0fOoK5snpcCSM79qFQlEeeyl755nTvKWJt4Kd/OA7XzoLrzDjpxH0QP+yIwuMkHJyVr3n06gsxMnuOoPANJMR+Z72kJ819v0gCcgWNiOxiFEFFK3Fp91c3czWPVhXcJqgfHWlFq20JF5P2uNwx/I0VsZEEIdeyX+hpzTEW6V+uTtGVVB8525tDJDdAJejC+sejwFkjaaiDzUqJwrISsKWz5yMTIlP3N6EbjL1130cjUFWBHBIZfynlMD+09BQRvy9XaN+R0rcHmY8ej4aKSUhfMAWOnMLGUMszvfw1nTEUY30cmdJ4oOHHL1cZ0EqgAh09ntkGgcdidECHiOuChI/MYWJHA3ke6aYowVlHeYvT5PPEcb0Tcnbfz4EeVNLHkjhHBH6K6pVxZKBsS0dbiGqMSQ3Wd79G1vtB1K2MwVPC5tJjG4/YaNbPOzEpKsSUPK6X75Vyb4LZDTU2JLzMEmSnIQ09JLZDL5aQjLrOG9sNS6A3boDpzomTgo0vIPOJk808o= #DOCKER_USER
+  - secure: S67aWeIn3/BK8O16of9MO5x2F4UP3eqYA1xm1DF6BlJ+N4cdTtzX5dQqzYk7KSQtFHqj7DdKAC/tE46RaWVOdTivgyRDWn27nBGqTJxI5r6TYuA1uQU9VVgTxH5lW6uOlqyvj4yQw+3HNS1e793eGE6qGlvFyL46E2K+s3J4IHAc5Pn+ZN5EOooVx37f8m3HDKL5bA1gy6b5n3izBf66QnwKj/E78ebwz3JgWG15/WuTnLqn6SED5hht6btQq3UT+beY4IuF1R/BCiOeBGXGd/lnu+mtdq6CRkUKTNmJq+Y50T7HQufOQtKfBDNgnSQuEynGusXEK8g8mPM6WW9nDwIsql0D6xb4tvd0mr3NSB0FMynpoxceJFIWxP0R0tLsjgzvEvoR0sifsTVBgN7grde+gZORvoIjiqkqfI5Pvfh3pmkCqowDGmsFZ46U8Pr/B003kDSOHGRquQPbpgXkqM4KdC/dmevp4PYxzHnTPF3ANSR2Ag71izhcIYjWFIb2iWosB7A4cgVc8rkqAKdhjHFAUPQuL5Uw1Wg8Zu9YBWW9HTXa/lQDJkEduNwCVOgwpYg3RcWvHuNVt6v9HaKTX1FrKXIZhs40x5lk7MzW9cfJ2Jg94U/SFY5vzfLckFrAs4aMc5rMAjasdweNZuWFuRnmrRMpnxZCd15JuyNGa+A= #DOCKER_PW  
+
 script: 
   - npm test
   - $TRAVIS_BUILD_DIR/upload.sh -p tdb-app -t $TRAVIS_BRANCH@$TRAVIS_BUILD_NUMBER
-  - API_URL=https://tdb-service.herokuapp.com/api npm run build:prod
+  - npm run build:prod
 
 before_deploy:
   - mkdir -p heroku/public
@@ -19,8 +27,16 @@ deploy:
   script: deployment/to_heroku.sh develop
   on:
     branch: develop
+  skip_cleanup: true  
 - provider: script
   script: deployment/to_heroku.sh master
   on:
     branch: master
   skip_cleanup: true    
+
+after_success:
+  - docker login -u $DOCKER_USER -p $DOCKER_PW
+  - export REPO=dasnervtdoch/tdb-app
+  - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo "$TRAVIS_BRANCH.$TRAVIS_BUILD_NUMBER" ; fi`
+  - docker build -f docker/Dockerfile -t $REPO:$TAG .
+  - docker push $REPO

@@ -12,6 +12,7 @@ class LoginForm extends React.Component {
 
     super(props);
     this.state = {
+      success: false,
       errorMessage: "",
       login: {
         email: '',
@@ -49,11 +50,15 @@ class LoginForm extends React.Component {
       headers
     } 
 
-    fetch(process.env.API_URL + "/login", options)
+    fetch(window.env.API_URL + "/login", options)
       .then(response => {
+        
+        if (!response.ok) { throw response }
+        
         let token = response.headers.get('Authorization')
         sessionStorage.setItem("jwtToken", token)
         return response.json()
+
       })
       .then(user => {
         let { search } = this.props.location
@@ -61,10 +66,21 @@ class LoginForm extends React.Component {
         if (search) {
           redirect = search.split("?r=")[1] || ''
         }
+        this.setState({ 
+          success: true,
+          errorMessage: "",
+          login: {
+            email: '',
+            password: ''
+          }
+        })
         this.props.loginSuccess(user, redirect)
       })
-      .catch(error => {
-        console.log(error)
+      .catch(errData => {
+        console.log(errData)
+        errData.text().then( err => {
+          this.setState({errorMessage: JSON.parse(err).message, success: false})
+        })
       })
   }
 
