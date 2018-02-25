@@ -11,4 +11,4 @@ curl \
     -F "externalProjectId=$PROJECT" \
     -F "externalTestRunId=$TEST_RUN" \
     -F "file=@test-results.xml" \
-    https://tdb-service.herokuapp.com/api/upload-junit4-xml-wrapped
+    $API_URL/upload/junit4-xml-wrapped
