@@ -7,6 +7,12 @@ class TestRunGraph extends React.Component {
     super(props)
   }
 
+  handleClick(data) {
+    if (data !== undefined && data.length > 0) {
+      console.log("test run key: " + data[0]._model.label)
+    }
+  }
+
   render() {
 
     const options = {
@@ -27,7 +33,7 @@ class TestRunGraph extends React.Component {
 
     return (
       <Card fluid>
-        <Bar data={this.props.data} options={options} height={100}/>
+        <Bar data={this.props.data} options={options} height={100} onElementsClick={this.handleClick}/>
       </Card>
     )
   }
