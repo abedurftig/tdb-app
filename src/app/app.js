@@ -15,6 +15,7 @@ import Login from './components/landingpage/login'
 import { Segment, Button } from 'semantic-ui-react'
 import { request } from './api'
 import { setAuthUser, logout } from './reducers/session'
+import TestRunDetails from './components/test-run/test-run-details'
 
 class App extends React.Component {
   
@@ -73,6 +74,7 @@ class App extends React.Component {
             <Route exact path="/about-us" component={About} />
             <Route exact path="/projects" component={Projects} />
             <Route path="/projects/:id" component={Project} />
+            <Route path="/test-run/:id" component={TestRunDetails} />
             <Redirect to="/projects"/>
           </Switch>
         </Segment>

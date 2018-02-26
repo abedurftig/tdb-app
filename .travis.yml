@@ -15,7 +15,9 @@ env:
 
 script: 
   - npm test
-  - $TRAVIS_BUILD_DIR/upload.sh -p tdb-app -t $TRAVIS_BRANCH@$TRAVIS_BUILD_NUMBER
+  - export API_URL=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "$API_URL_MASTER"; else echo "$API_URL_DEVELOP" ; fi`
+  - export PROJECT_KEY=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "$PROJECT_MASTER"; else echo "$PROJECT_DEVELOP" ; fi`
+  - $TRAVIS_BUILD_DIR/upload.sh -p $PROJECT_KEY -t $TRAVIS_BRANCH@$TRAVIS_BUILD_NUMBER
   - npm run build:prod
 
 before_deploy:

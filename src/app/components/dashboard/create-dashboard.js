@@ -25,7 +25,6 @@ class CreateDashboard extends React.Component {
     this.setState({
       name: value
     })
-    console.log(this.state)
   }
 
   handleSelectionChange = (event, data) => {

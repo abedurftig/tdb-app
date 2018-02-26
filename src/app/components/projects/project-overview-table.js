@@ -37,13 +37,6 @@ class ProjectOverviewTable extends React.Component {
             })
           }
         </Table.Body>
-    
-        {/* <Table.Footer>
-          <Table.Row>
-            <Table.HeaderCell colSpan='3'>
-            </Table.HeaderCell>
-          </Table.Row>
-        </Table.Footer> */}
       </Table>  
     )
   }

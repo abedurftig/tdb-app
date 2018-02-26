@@ -26,7 +26,6 @@ const buildElement = project => {
       <h4>Test Runs</h4>
       <p>{project.name} has {project.testRuns.length} test runs.</p>
       <div>
-        {/* <ProjectOverviewTable project={project} /> */}
         <ProjectTestRunGraph projectId={project.id}/>
       </div>
     </div>

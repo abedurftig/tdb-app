@@ -38,7 +38,7 @@ class ProjectTestRunsGraph extends React.Component {
 
 const buildDataInput = summary => {
 
-  let labels = summary.map(tr => tr.externalId)
+  let labels = summary.map(tr => [tr.externalId, tr.creationDate])
   let passed = summary.map(tr => tr.numPassed)
   let skipped = summary.map(tr => tr.numSkipped)
   let failed = summary.map(tr => tr.numFailed) 
