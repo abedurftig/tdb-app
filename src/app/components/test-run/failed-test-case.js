@@ -1,10 +1,16 @@
 import { Segment } from 'semantic-ui-react'
 
-const spanStyle = {
+const actionStyle = {
   color: '#000000',
   textDecoration: 'underline',
   cursor: 'pointer',
-  userSelect: 'none'
+  userSelect: 'none',
+  fontSize: 12,
+}
+
+const spanStyle = {
+  fontSize: 11,
+  float: 'right'
 }
 
 const preStyle = {
@@ -21,8 +27,8 @@ class FailedTestCase extends React.Component {
 
   getLabel() {
     return this.state.detailsVisible ?
-      "Hide details" :
-      "Show details"
+      "(less)" :
+      "(more)"
   }
 
   handleToggle = () => {
@@ -33,7 +39,9 @@ class FailedTestCase extends React.Component {
     return (
       <div>
         <Segment color='red'>
-          <p>Name: {this.props.testCase.name} <span style={spanStyle} onClick={this.handleToggle}>{this.getLabel()}</span></p>
+          <p>{this.props.testCase.name} <span style={actionStyle} onClick={this.handleToggle}>{this.getLabel()}</span>
+            <span style={spanStyle}>Test Suite: {this.props.testCase.testSuiteName}</span>
+          </p>
           {this.state.detailsVisible && 
           <pre style={preStyle}>
             {this.props.testCase.value}
