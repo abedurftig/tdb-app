@@ -1,15 +1,11 @@
-const style = {
-  backgroundColor: '#F4D742',
-  marginBottom: '5px',
-  padding: '5px'
-}
+import { Segment } from 'semantic-ui-react'
 
 export default (props) => {
-
   return (
-    <div style={style}>
-      <p>Name: {props.testCase.name}, Test-Suite: {props.testCase.testSuiteId}</p>
+    <div>
+      <Segment color='yellow'>
+        <p>Name: {props.testCase.name}, Test-Suite: {props.testCase.testSuiteId}</p>
+      </Segment>
     </div>
   )
-
 }

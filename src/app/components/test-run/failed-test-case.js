@@ -1,11 +1,4 @@
 import { Segment } from 'semantic-ui-react'
-import Collabsible from '../common/collapsible'
-
-const style = {
-  backgroundColor: '#FF0000',
-  marginBottom: '5px',
-  padding: '5px'
-}
 
 const spanStyle = {
   color: '#000000',
@@ -33,15 +26,14 @@ class FailedTestCase extends React.Component {
 
   render() {
     return (
-      <div style={style}>
-        <p>Name: {this.props.testCase.name} <span style={spanStyle} onClick={this.handleToggle}>{this.getLabel()}</span></p>
-        {this.state.detailsVisible && 
-        <Segment secondary clearing size='tiny'>
+      <div>
+        <Segment color='red'>
+          <p>Name: {this.props.testCase.name} <span style={spanStyle} onClick={this.handleToggle}>{this.getLabel()}</span></p>
+          {this.state.detailsVisible && 
           <pre>
             {this.props.testCase.value}
-          </pre>
+          </pre>}
         </Segment>
-        }
       </div>
     )
   } 
