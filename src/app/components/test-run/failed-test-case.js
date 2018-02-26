@@ -7,6 +7,11 @@ const spanStyle = {
   userSelect: 'none'
 }
 
+const preStyle = {
+  overflow: 'auto',
+  tabSize: 2
+}
+
 class FailedTestCase extends React.Component {
 
   constructor(props) {
@@ -30,7 +35,7 @@ class FailedTestCase extends React.Component {
         <Segment color='red'>
           <p>Name: {this.props.testCase.name} <span style={spanStyle} onClick={this.handleToggle}>{this.getLabel()}</span></p>
           {this.state.detailsVisible && 
-          <pre>
+          <pre style={preStyle}>
             {this.props.testCase.value}
           </pre>}
         </Segment>
