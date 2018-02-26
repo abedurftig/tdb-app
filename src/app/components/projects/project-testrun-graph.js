@@ -13,7 +13,7 @@ class TestRunGraph extends React.Component {
 
   handleClick = data => {
     if (data !== undefined && data.length > 0) {
-      // this.props.goTo(data[0]._model.label[0])
+      this.props.goTo(data[0]._model.label[0])
     }
   }
 
