@@ -1,15 +1,19 @@
 import { Card } from 'semantic-ui-react'
 import { Bar } from 'react-chartjs-2'
 
+import { push } from 'react-router-redux'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+
 class TestRunGraph extends React.Component {
 
   constructor(props) {
     super(props)
   }
 
-  handleClick(data) {
+  handleClick = data => {
     if (data !== undefined && data.length > 0) {
-      console.log("test run key: " + data[0]._model.label)
+      // this.props.goTo(data[0]._model.label[0])
     }
   }
 
@@ -40,4 +44,17 @@ class TestRunGraph extends React.Component {
   
 }
 
-export default TestRunGraph
+const mapStateToProps = state => {
+  return {
+    user: state.session.user,
+  }
+}
+
+const mapDispatchToProps = dispatch => bindActionCreators({
+  goTo: (externalId) => push('/test-run/' + externalId),
+}, dispatch)
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TestRunGraph)

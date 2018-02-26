@@ -4,7 +4,6 @@ export const REQUEST_ACCOUNT = 'account/REQUEST_ACCOUNT'
 export const ACCOUNT_RECEIVED = 'account/ACCOUNT_RECEIVED'
 
 export const loadAccount = accountId => {
-
   return dispatch => {
     dispatch(requestAccountAction(accountId))
     return Api.request('account/' + accountId)
