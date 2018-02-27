@@ -1,6 +1,10 @@
 import TestRunGraph from './project-testrun-graph'
 import { request } from '../../api'
 
+import { push } from 'react-router-redux'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+
 class ProjectTestRunsGraph extends React.Component {
 
   constructor(props) {
@@ -15,6 +19,11 @@ class ProjectTestRunsGraph extends React.Component {
     })
   }
 
+  testCaseSelected = externalId => {
+    let testRun = this.state.summary.filter(tr => tr.externalId === externalId)[0]
+    this.props.goTo(testRun.id)
+  }
+
   render() {
 
     let result = <div>loading..</div>
@@ -25,7 +34,7 @@ class ProjectTestRunsGraph extends React.Component {
       let data = buildData(dataInput)  
       result = (
         <div>
-          <TestRunGraph data={data} />
+          <TestRunGraph data={data} clickHandler={this.testCaseSelected}/>
         </div>
       )
     }
@@ -73,4 +82,11 @@ const buildData = dataInput => {
 
 }
 
-export default ProjectTestRunsGraph
+const mapDispatchToProps = dispatch => bindActionCreators({
+  goTo: (id) => push('/test-run/' + id),
+}, dispatch)
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(ProjectTestRunsGraph)
