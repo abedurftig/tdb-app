@@ -1,8 +1,5 @@
 import { Card } from 'semantic-ui-react'
 import { Bar } from 'react-chartjs-2'
-
-import { push } from 'react-router-redux'
-import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
 class TestRunGraph extends React.Component {
@@ -13,7 +10,7 @@ class TestRunGraph extends React.Component {
 
   handleClick = data => {
     if (data !== undefined && data.length > 0) {
-      this.props.goTo(data[0]._model.label[0])
+      this.props.clickHandler(data[0]._model.label[0])
     }
   }
 
@@ -50,11 +47,7 @@ const mapStateToProps = state => {
   }
 }
 
-const mapDispatchToProps = dispatch => bindActionCreators({
-  goTo: (externalId) => push('/test-run/' + externalId),
-}, dispatch)
-
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  null
 )(TestRunGraph)
