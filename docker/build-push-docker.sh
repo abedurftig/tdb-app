@@ -2,7 +2,7 @@
 if [ "$TRAVIS_BRANCH" == "master" ] || [[ $TRAVIS_BRANCH =~ v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
 
     docker login -u $DOCKER_USER -p $DOCKER_PW
-    repo=dasnervtdoch/tdb-service
+    repo=dasnervtdoch/tdb-app
 
     if [ "$TRAVIS_BRANCH" == "master" ]; then
         tag="latest";
