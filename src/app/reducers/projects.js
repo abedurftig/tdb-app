@@ -6,7 +6,7 @@ export const ALL_RECEIVED = 'projects/ALL_RECEIVED'
 export const PROJECT_REQUESTED = 'projects/PROJECT_REQUESTED'
 export const PROJECT_RECEIVED = 'projects/PROJECT_RECEIVED'
 export const SUMMARY_REQUESTED = 'projects/SUMMARY_REQUESTED'
-export const SUMAMRT_RECEIVED = 'projects/SUMMART_RECEIVED'
+export const SUMMARY_RECEIVED = 'projects/SUMMART_RECEIVED'
 
 export const DELETE_PROJECT = 'projects/DELETE_PROJECT'
 export const PROJECT_DELETED = 'projects/PROJECT_DELETED'
@@ -55,7 +55,7 @@ export default (state = initialState, action) => {
         testRunsSummary: undefined,
         loadingSummary: true
       }  
-    case SUMAMRT_RECEIVED:
+    case SUMMARY_RECEIVED:
       return {
         ...state,
         loadingSummary: false,
@@ -113,7 +113,7 @@ export const getById = id => {
     dispatch({
       type: PROJECT_REQUESTED
     })
-    return Api.request('project/' + id)
+    return Api.request('project/' + id + '/summary')
     .then(project => {
       dispatch({
         type: PROJECT_RECEIVED,
@@ -146,7 +146,7 @@ export const getTestRunsSummary = projectId => {
     return Api.request('project/' + projectId + '/testruns-summary')
     .then(testRunsSummary => {
       dispatch({
-        type: SUMAMRT_RECEIVED,
+        type: SUMMARY_RECEIVED,
         testRunsSummary
       })
     })
