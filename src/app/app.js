@@ -75,7 +75,7 @@ class App extends React.Component {
             <Route exact path="/projects" component={Projects} />
             <Route path="/projects/:id" component={Project} />
             <Route path="/test-run/:id" component={TestRunDetails} />
-            <Redirect to="/projects"/>
+            <Redirect to="/account"/>
           </Switch>
         </Segment>
         }
