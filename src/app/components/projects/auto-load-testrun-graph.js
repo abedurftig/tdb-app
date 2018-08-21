@@ -13,7 +13,11 @@ class ProjectTestRunsGraph extends React.Component {
   }
 
   componentDidMount() {
-    request('project/' + this.props.projectId + '/testruns-summary')
+
+    let query = window.env.TESTRUN_SUMMARY_COUNT === undefined ? 
+      '' : '?count=' + window.env.TESTRUN_SUMMARY_COUNT
+
+    request('project/' + this.props.projectId + '/testruns-summary' + query)
     .then(summary => {
       this.setState({ summary })
     })
@@ -32,8 +36,13 @@ class ProjectTestRunsGraph extends React.Component {
     if (summary) {
       let dataInput = buildDataInput(summary)
       let data = buildData(dataInput)  
+
+      let msg = window.env.TESTRUN_SUMMARY_COUNT === undefined ? 
+        'all' : 'the last ' + window.env.TESTRUN_SUMMARY_COUNT
+
       result = (
         <div>
+          <p>Showing the {msg} test runs.</p>
           <TestRunGraph data={data} clickHandler={this.testCaseSelected}/>
         </div>
       )
